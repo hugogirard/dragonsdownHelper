@@ -651,6 +651,14 @@ def render_character_form(char_data, char_id=None):
         if updated_char_data != char_data:
             save_character(char_id, updated_char_data)
             st.caption("✅ Auto-saved")
+    elif autosave and char_id == "new_character" and hero_name:
+        # Auto-save for new character - create it when hero name is entered
+        new_char_id = create_character_id(hero_name)
+        if save_character(new_char_id, updated_char_data):
+            st.session_state.current_character = new_char_id
+            st.session_state.show_create_form = False
+            st.caption(f"✅ Auto-saved as: {new_char_id}")
+            st.rerun()
     
     # Save Button
     st.markdown("---")
