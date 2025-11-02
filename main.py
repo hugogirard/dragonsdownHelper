@@ -10,6 +10,274 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS for fantasy theme
+st.markdown("""
+<style>
+    /* Import medieval-looking font */
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap');
+    
+    /* Main theme colors - dark fantasy */
+    :root {
+        --primary-color: #d4af37;
+        --background-color: #0d0907;
+        --secondary-background-color: #1a120d;
+        --text-color: #f5e6d3;
+        --accent-color: #ff6b35;
+    }
+    
+    /* Main background - deep dark with subtle texture */
+    .stApp {
+        background: 
+            radial-gradient(ellipse at top, #1a0f0a 0%, #0d0907 50%, #000000 100%),
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(139, 69, 19, 0.02) 10px,
+                rgba(139, 69, 19, 0.02) 20px
+            );
+        background-attachment: fixed;
+    }
+    
+    /* Sidebar - rich leather book style */
+    [data-testid="stSidebar"] {
+        background: 
+            linear-gradient(180deg, #2d1810 0%, #1a0f0a 50%, #0d0604 100%);
+        border-right: 4px solid #d4af37;
+        box-shadow: 
+            inset -20px 0 30px rgba(0,0,0,0.5),
+            5px 0 20px rgba(212, 175, 55, 0.2);
+        position: relative;
+    }
+    
+    /* Sidebar decorative border */
+    [data-testid="stSidebar"]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 4px;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255, 107, 53, 0.5) 10%,
+            rgba(255, 107, 53, 0.5) 90%,
+            transparent
+        );
+    }
+    
+    /* Sidebar title */
+    [data-testid="stSidebar"] h1 {
+        color: #d4af37 !important;
+        font-family: 'Cinzel', serif !important;
+        text-shadow: 
+            2px 2px 4px #000000,
+            0 0 20px rgba(212, 175, 55, 0.6),
+            0 0 40px rgba(212, 175, 55, 0.3);
+        font-size: 1.8rem !important;
+        letter-spacing: 2px;
+        border-bottom: 3px double #d4af37;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    /* Sidebar caption */
+    [data-testid="stSidebar"] .stCaption {
+        color: #d4af37 !important;
+        text-align: center;
+        font-style: italic;
+        margin-top: 20px;
+        border-top: 1px solid #8B4513;
+        padding-top: 10px;
+    }
+    
+    /* Headers */
+    h1, h2, h3 {
+        color: #d4af37 !important;
+        font-family: 'Cinzel', serif !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        letter-spacing: 2px;
+    }
+    
+    /* Main title */
+    .main h1 {
+        font-size: 3rem !important;
+        text-align: center;
+        background: linear-gradient(135deg, #ffd700 0%, #d4af37 50%, #ff6b35 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+        filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));
+        margin-bottom: 30px;
+        padding: 20px 0;
+        border-bottom: 3px solid #d4af37;
+        border-top: 3px solid #d4af37;
+    }
+    
+    /* Section headers */
+    .main h2 {
+        color: #ff6b35 !important;
+        border-left: 5px solid #d4af37;
+        padding-left: 15px;
+        margin-top: 30px;
+    }
+    
+    /* Expander styling - ancient book pages */
+    .streamlit-expanderHeader {
+        background: linear-gradient(135deg, #2d1810 0%, #1a0f0a 100%) !important;
+        border: 2px solid #d4af37 !important;
+        border-radius: 10px !important;
+        color: #f5e6d3 !important;
+        font-weight: bold;
+        font-family: 'Cinzel', serif !important;
+        box-shadow: 
+            0 4px 10px rgba(0,0,0,0.7),
+            inset 0 1px 0 rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        background: linear-gradient(135deg, #3d2820 0%, #2d1810 100%) !important;
+        border-color: #ffd700 !important;
+        box-shadow: 
+            0 6px 15px rgba(0,0,0,0.8),
+            0 0 20px rgba(212, 175, 55, 0.4);
+        transform: translateY(-2px);
+    }
+    
+    .streamlit-expanderContent {
+        background: linear-gradient(180deg, #1a120d 0%, #0d0907 100%) !important;
+        border: 2px solid #8B4513 !important;
+        border-top: none !important;
+        border-radius: 0 0 10px 10px !important;
+        box-shadow: inset 0 4px 8px rgba(0,0,0,0.5);
+        padding: 20px !important;
+    }
+    
+    /* Buttons - ornate medieval */
+    .stButton button {
+        background: linear-gradient(135deg, #8B4513 0%, #654321 100%) !important;
+        color: #f5e6d3 !important;
+        border: 3px solid #d4af37 !important;
+        border-radius: 8px !important;
+        font-weight: bold;
+        font-family: 'Cinzel', serif !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+        box-shadow: 
+            0 4px 8px rgba(0,0,0,0.6),
+            inset 0 1px 0 rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+    
+    .stButton button:hover {
+        background: linear-gradient(135deg, #a0522d 0%, #8B4513 100%) !important;
+        border-color: #ffd700 !important;
+        box-shadow: 
+            0 6px 12px rgba(0,0,0,0.8),
+            0 0 25px rgba(212, 175, 55, 0.5);
+        transform: translateY(-3px);
+    }
+    
+    /* Primary button - golden treasure */
+    .stButton button[kind="primary"] {
+        background: linear-gradient(135deg, #ffd700 0%, #d4af37 50%, #ff6b35 100%) !important;
+        color: #0d0907 !important;
+        border: 3px solid #ffd700 !important;
+        font-weight: 900;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.3);
+    }
+    
+    .stButton button[kind="primary"]:hover {
+        background: linear-gradient(135deg, #ffed4e 0%, #ffd700 50%, #ff8c52 100%) !important;
+        box-shadow: 
+            0 8px 16px rgba(0,0,0,0.9),
+            0 0 40px rgba(255, 215, 0, 0.8),
+            inset 0 0 20px rgba(255,255,255,0.3);
+        transform: translateY(-3px) scale(1.02);
+    }
+    
+    /* Input fields - parchment style */
+    .stTextInput input, .stTextArea textarea {
+        background-color: #2d1f15 !important;
+        border: 2px solid #8B4513 !important;
+        border-radius: 8px !important;
+        color: #f5e6d3 !important;
+        font-family: 'Crimson Text', serif !important;
+        font-size: 1.1rem !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    .stTextInput input:focus, .stTextArea textarea:focus {
+        border-color: #d4af37 !important;
+        box-shadow: 
+            inset 0 2px 4px rgba(0,0,0,0.5),
+            0 0 15px rgba(212, 175, 55, 0.4) !important;
+        background-color: #3d2f25 !important;
+    }
+    
+    /* Checkboxes */
+    .stCheckbox {
+        color: #f5e6d3 !important;
+        font-family: 'Crimson Text', serif !important;
+    }
+    
+    /* Labels and captions */
+    .stCaption {
+        color: #d4af37 !important;
+        font-weight: bold;
+        font-family: 'Cinzel', serif !important;
+    }
+    
+    /* Markdown text */
+    .stMarkdown {
+        color: #f5e6d3 !important;
+        font-family: 'Crimson Text', serif !important;
+        line-height: 1.8;
+    }
+    
+    /* Success messages */
+    .stSuccess {
+        background: linear-gradient(135deg, #1a3d1a 0%, #0f2a0f 100%) !important;
+        border: 2px solid #4a7c4a !important;
+        border-radius: 8px;
+        color: #90ee90 !important;
+    }
+    
+    /* Error messages */
+    .stError {
+        background: linear-gradient(135deg, #3d1a1a 0%, #2a0f0f 100%) !important;
+        border: 2px solid #8B0000 !important;
+        color: #ff6b6b !important;
+    }
+    
+    /* Horizontal rules - ornate divider */
+    hr {
+        border: none !important;
+        height: 3px !important;
+        background: linear-gradient(
+            to right,
+            transparent,
+            #d4af37 20%,
+            #d4af37 80%,
+            transparent
+        ) !important;
+        margin: 30px 0 !important;
+    }
+    
+    /* Column styling */
+    [data-testid="column"] {
+        background-color: rgba(29, 18, 13, 0.5);
+        border-radius: 10px;
+        padding: 15px;
+        border: 1px solid rgba(139, 69, 19, 0.3);
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize repository
 @st.cache_resource
 def get_repository():
@@ -760,7 +1028,8 @@ def main():
         char_data = st.session_state.characters.get(char_id, get_empty_character())
         render_character_form(char_data, char_id)
     else:
-        st.title("🐉 Welcome to Dragons Down Adventure Journal")
+        st.title("🐉 Dragons Down Adventure Journal")
+        
         st.markdown("""
         ### Getting Started
         
@@ -778,9 +1047,28 @@ def main():
         Your adventure awaits!
         """)
         
-        # Display example image if available
-        st.image("https://via.placeholder.com/800x600?text=Dragons+Down+Adventure+Journal", 
-                caption="Example Character Sheet")
+        st.markdown("""
+        <div style='background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(61, 42, 31, 0.3) 100%); 
+                    padding: 30px; border-radius: 15px; border: 3px solid #8B4513; 
+                    box-shadow: 0 8px 16px rgba(0,0,0,0.6); margin: 20px 0;'>
+            <h2 style='color: #d4af37; text-align: center; font-family: Georgia, serif; 
+                       text-shadow: 2px 2px 4px rgba(0,0,0,0.8); margin-bottom: 20px;'>
+                ⚔️ The Age of Rebuilding ⚔️
+            </h2>
+            <p style='color: #e8dcc4; font-size: 1.1em; text-align: center; font-style: italic; 
+                     line-height: 1.8; font-family: Georgia, serif;'>
+                Two centuries have passed since the dragons' wrath consumed the world. 
+                From the ashes of destruction, brave civilizations rise again. 
+                Elves, humans, and dwarves forge new alliances, venturing into forgotten ruins 
+                and facing ancient evils. Orcs, goblins, and darker creatures lurk in the shadows, 
+                challenging those who dare to explore the scarred lands.
+            </p>
+            <p style='color: #d4af37; font-size: 1.2em; text-align: center; font-weight: bold; 
+                     margin-top: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);'>
+                Will you be the hero this broken world needs?
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
