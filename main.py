@@ -25,13 +25,19 @@ if 'current_character' not in st.session_state:
     st.session_state.current_character = None
 
 if 'autosave' not in st.session_state:
-    st.session_state.autosave = False
+    st.session_state.autosave = True  # Auto-save enabled by default
 
 if 'show_create_form' not in st.session_state:
     st.session_state.show_create_form = False
 
 if 'show_realm_builder' not in st.session_state:
     st.session_state.show_realm_builder = False
+
+if 'last_save_time' not in st.session_state:
+    st.session_state.last_save_time = None
+
+if 'pending_save' not in st.session_state:
+    st.session_state.pending_save = False
 
 
 def save_character(char_id, char_data):
@@ -316,243 +322,300 @@ def get_empty_character():
 def render_character_form(char_data, char_id=None):
     """Render the character sheet form"""
     
+    # If no char_id provided (new character), use a temporary unique ID for widget keys
+    if char_id is None:
+        char_id = "new_character"
+    
     st.title("🐉 Dragons Down Adventure Journal")
     
-    # Autosave toggle
-    col1, col2 = st.columns([3, 1])
+    # Top controls
+    col1, col2, col3 = st.columns([2, 1, 1])
+    
     with col2:
-        autosave = st.checkbox("Auto-save", value=st.session_state.autosave, key=f"autosave_{char_id}")
+        autosave = st.checkbox("Auto-save (2s delay)", value=st.session_state.autosave, key=f"autosave_{char_id}")
         st.session_state.autosave = autosave
     
+    with col3:
+        # Collapse/Expand All button
+        if 'sections_expanded' not in st.session_state:
+            st.session_state.sections_expanded = True
+        
+        if st.button("➖ Collapse All" if st.session_state.sections_expanded else "➕ Expand All", use_container_width=True):
+            st.session_state.sections_expanded = not st.session_state.sections_expanded
+            st.rerun()
+    
+    st.markdown("---")
+    
     # Character Info Section
-    st.header("Character Information")
-    hero_name = st.text_input("Hero Name", value=char_data.get('hero_name', ''), key=f"hero_name_{char_id}")
-    lineage_class = st.text_input("Lineage and Class", value=char_data.get('lineage_and_class', ''), key=f"lineage_{char_id}")
-    advantages = st.text_area("Advantages", value=char_data.get('advantages', ''), height=100, key=f"advantages_{char_id}")
+    with st.expander("📋 Character Information", expanded=st.session_state.sections_expanded):
+        hero_name = st.text_input("Hero Name", value=char_data.get('hero_name', ''), key=f"hero_name_{char_id}")
+        lineage_class = st.text_input("Lineage and Class", value=char_data.get('lineage_and_class', ''), key=f"lineage_{char_id}")
+        advantages = st.text_area("Advantages", value=char_data.get('advantages', ''), height=100, key=f"advantages_{char_id}")
     
-    st.header("Adventure Details")
-    scenario = st.text_area("Scenario", value=char_data.get('scenario', ''), height=100, key=f"scenario_{char_id}")
-    hero_story = st.text_area("Hero Story", value=char_data.get('hero_story', ''), height=150, key=f"story_{char_id}")
+    # Adventure Details Section
+    with st.expander("📖 Adventure Details", expanded=st.session_state.sections_expanded):
+        scenario = st.text_area("Scenario", value=char_data.get('scenario', ''), height=100, key=f"scenario_{char_id}")
+        hero_story = st.text_area("Hero Story", value=char_data.get('hero_story', ''), height=150, key=f"story_{char_id}")
     
-    # Journal Entries
-    st.header("Adventure Journal")
-    st.caption("Track your journey (Lines 1-30)")
-    
-    journal_entries = char_data.get('journal_entries', [''] * 30)
-    
-    # Display journal in two columns
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Lines 1-15")
-        for i in range(15):
-            journal_entries[i] = st.text_input(
-                f"Line {i+1}", 
-                value=journal_entries[i], 
-                key=f"journal_{i}_{char_id}",
-                label_visibility="collapsed"
-            )
-    
-    with col2:
-        st.subheader("Lines 16-30")
-        for i in range(15, 30):
-            journal_entries[i] = st.text_input(
-                f"Line {i+1}", 
-                value=journal_entries[i], 
-                key=f"journal_{i}_{char_id}",
-                label_visibility="collapsed"
-            )
+    # Journal Entries Section
+    with st.expander("📝 Adventure Journal (Lines 1-30)", expanded=st.session_state.sections_expanded):
+        journal_entries = char_data.get('journal_entries', [''] * 30)
+        
+        # Display journal in two columns
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("Lines 1-15")
+            for i in range(15):
+                journal_entries[i] = st.text_input(
+                    f"Line {i+1}", 
+                    value=journal_entries[i], 
+                    key=f"journal_{i}_{char_id}",
+                    label_visibility="collapsed"
+                )
+        
+        with col2:
+            st.subheader("Lines 16-30")
+            for i in range(15, 30):
+                journal_entries[i] = st.text_input(
+                    f"Line {i+1}", 
+                    value=journal_entries[i], 
+                    key=f"journal_{i}_{char_id}",
+                    label_visibility="collapsed"
+                )
     
     # Hidden Paths Section
-    st.header("Hidden Paths Found")
-    st.caption("Check the boxes for the tile connections you've discovered")
-    
-    hidden_paths = char_data.get('hidden_paths', get_empty_character()['hidden_paths'])
-    
-    # Define the hidden path configurations based on the image
-    hidden_path_config = {
-        'Caves': {
-            'Ancient Hole': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['1-6', '3-4', '5-6']},
-            'Black Caves': {'Tile Side 1': ['3-4'], 'Tile Side 2': ['1-6', '3-4', '5-6']},
-            'Dark Passes': {'Tile Side 1': ['1-4', '3-6'], 'Tile Side 2': ['1-4', '2-3', '3-6']},
-            'Forlorn Tunnel': {'Tile Side 1': ['1-5', '2-3'], 'Tile Side 2': ['1-5', '2-3', '2-6', '4-5']},
-            'Secret Dens': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['2-3']},
-        },
-        'Mountains': {
-            'Barriers': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['1-3', '1-6']},
-            'High Pass': {'Tile Side 1': ['1-5'], 'Tile Side 2': ['1-5', '3-4']},
-            'Lonely Mountains': {'Tile Side 1': ['2-5'], 'Tile Side 2': ['2-5', '3-4']},
-            'Narrow Ridges': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['3-4', '5-6']},
-            'Tri-Peaks': {'Tile Side 1': ['1-5', '4-5'], 'Tile Side 2': ['2-6', '4-5']},
-        },
-        'Woods': {
-            'Deep Woods': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['1-6']},
-            'Elder Woods': {'Tile Side 1': ['4-6'], 'Tile Side 2': ['3-4']},
-            'Mirky Woods': {'Tile Side 1': ['2-6'], 'Tile Side 2': ['1-6']},
-            'Oakwood': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['1-3']},
-            'Timberlands': {'Tile Side 1': ['3-6'], 'Tile Side 2': ['1-4']},
-        },
-        'Plains': {
-            'Flatlands': {'Tile Side 1': ['1-2'], 'Tile Side 2': ['5-6']},
-            'Grassy Plains': {'Tile Side 1': ['4-5'], 'Tile Side 2': ['3-4']},
-            'The Meadows': {'Tile Side 1': ['1-5'], 'Tile Side 2': ['2-3']},
-            'Twisted Steppe': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['4-6']},
-            'Unbroken Lands': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['2-4']},
-        },
-        'Swamps': {
-            'Decayed Swamp': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['4-5']},
-            'Foul Swamp': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['1-3']},
-            'Moorland': {'Tile Side 1': ['2-4'], 'Tile Side 2': ['4-6']},
-            'Putrid Waters': {'Tile Side 1': ['2-5'], 'Tile Side 2': ['4-6']},
-            'Quiet Bog': {'Tile Side 1': ['2-3'], 'Tile Side 2': ['5-6']},
+    with st.expander("🗺️ Hidden Paths Found", expanded=st.session_state.sections_expanded):
+        st.caption("Check the boxes for the tile connections you've discovered")
+        
+        hidden_paths = char_data.get('hidden_paths', get_empty_character()['hidden_paths'])
+        
+        # Define the hidden path configurations based on the image
+        hidden_path_config = {
+            'Caves': {
+                'Ancient Hole': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['1-6', '3-4', '5-6']},
+                'Black Caves': {'Tile Side 1': ['3-4'], 'Tile Side 2': ['1-6', '3-4', '5-6']},
+                'Dark Passes': {'Tile Side 1': ['1-4', '3-6'], 'Tile Side 2': ['1-4', '2-3', '3-6']},
+                'Forlorn Tunnel': {'Tile Side 1': ['1-5', '2-3'], 'Tile Side 2': ['1-5', '2-3', '2-6', '4-5']},
+                'Secret Dens': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['2-3']},
+            },
+            'Mountains': {
+                'Barriers': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['1-3', '1-6']},
+                'High Pass': {'Tile Side 1': ['1-5'], 'Tile Side 2': ['1-5', '3-4']},
+                'Lonely Mountains': {'Tile Side 1': ['2-5'], 'Tile Side 2': ['2-5', '3-4']},
+                'Narrow Ridges': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['3-4', '5-6']},
+                'Tri-Peaks': {'Tile Side 1': ['1-5', '4-5'], 'Tile Side 2': ['2-6', '4-5']},
+            },
+            'Woods': {
+                'Deep Woods': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['1-6']},
+                'Elder Woods': {'Tile Side 1': ['4-6'], 'Tile Side 2': ['3-4']},
+                'Mirky Woods': {'Tile Side 1': ['2-6'], 'Tile Side 2': ['1-6']},
+                'Oakwood': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['1-3']},
+                'Timberlands': {'Tile Side 1': ['3-6'], 'Tile Side 2': ['1-4']},
+            },
+            'Plains': {
+                'Flatlands': {'Tile Side 1': ['1-2'], 'Tile Side 2': ['5-6']},
+                'Grassy Plains': {'Tile Side 1': ['4-5'], 'Tile Side 2': ['3-4']},
+                'The Meadows': {'Tile Side 1': ['1-5'], 'Tile Side 2': ['2-3']},
+                'Twisted Steppe': {'Tile Side 1': ['1-6'], 'Tile Side 2': ['4-6']},
+                'Unbroken Lands': {'Tile Side 1': ['1-3'], 'Tile Side 2': ['2-4']},
+            },
+            'Swamps': {
+                'Decayed Swamp': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['4-5']},
+                'Foul Swamp': {'Tile Side 1': ['5-6'], 'Tile Side 2': ['1-3']},
+                'Moorland': {'Tile Side 1': ['2-4'], 'Tile Side 2': ['4-6']},
+                'Putrid Waters': {'Tile Side 1': ['2-5'], 'Tile Side 2': ['4-6']},
+                'Quiet Bog': {'Tile Side 1': ['2-3'], 'Tile Side 2': ['5-6']},
+            }
         }
-    }
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        # Caves
-        st.subheader("🏔️ Caves")
-        for location, sides in hidden_path_config['Caves'].items():
-            st.markdown(f"**{location}**")
-            cols = st.columns(2)
-            
-            # Tile Side 1
-            with cols[0]:
-                st.caption("Tile Side 1")
-                for path in sides['Tile Side 1']:
-                    key = f"{path}_s1"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-            
-            # Tile Side 2
-            with cols[1]:
-                st.caption("Tile Side 2")
-                for path in sides['Tile Side 2']:
-                    key = f"{path}_s2"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
         
-        # Mountains
-        st.subheader("⛰️ Mountains")
-        for location, sides in hidden_path_config['Mountains'].items():
-            st.markdown(f"**{location}**")
-            cols = st.columns(2)
-            
-            # Tile Side 1
-            with cols[0]:
-                st.caption("Tile Side 1")
-                for path in sides['Tile Side 1']:
-                    key = f"{path}_s1"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-            
-            # Tile Side 2
-            with cols[1]:
-                st.caption("Tile Side 2")
-                for path in sides['Tile Side 2']:
-                    key = f"{path}_s2"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
+        # Render each region as a collapsible expander
+        with st.expander("🏔️ Caves", expanded=True):
+            for location, sides in hidden_path_config['Caves'].items():
+                st.markdown(f"**{location}**")
+                cols = st.columns(2)
+                
+                # Tile Side 1
+                with cols[0]:
+                    st.caption("Tile Side 1")
+                    for path in sides['Tile Side 1']:
+                        key = f"{path}_s1"
+                        # Initialize if not exists
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+                
+                # Tile Side 2
+                with cols[1]:
+                    st.caption("Tile Side 2")
+                    for path in sides['Tile Side 2']:
+                        key = f"{path}_s2"
+                        # Initialize if not exists
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
         
-        # Woods
-        st.subheader("🌲 Woods")
-        for location, sides in hidden_path_config['Woods'].items():
-            st.markdown(f"**{location}**")
-            cols = st.columns(2)
-            
-            # Tile Side 1
-            with cols[0]:
-                st.caption("Tile Side 1")
-                for path in sides['Tile Side 1']:
-                    key = f"{path}_s1"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-            
-            # Tile Side 2
-            with cols[1]:
-                st.caption("Tile Side 2")
-                for path in sides['Tile Side 2']:
-                    key = f"{path}_s2"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-    
-    with col2:
-        # Plains
-        st.subheader("🌾 Plains")
-        for location, sides in hidden_path_config['Plains'].items():
-            st.markdown(f"**{location}**")
-            cols = st.columns(2)
-            
-            # Tile Side 1
-            with cols[0]:
-                st.caption("Tile Side 1")
-                for path in sides['Tile Side 1']:
-                    key = f"{path}_s1"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-            
-            # Tile Side 2
-            with cols[1]:
-                st.caption("Tile Side 2")
-                for path in sides['Tile Side 2']:
-                    key = f"{path}_s2"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
+        with st.expander("⛰️ Mountains", expanded=True):
+            for location, sides in hidden_path_config['Mountains'].items():
+                st.markdown(f"**{location}**")
+                cols = st.columns(2)
+                
+                # Tile Side 1
+                with cols[0]:
+                    st.caption("Tile Side 1")
+                    for path in sides['Tile Side 1']:
+                        key = f"{path}_s1"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+                
+                # Tile Side 2
+                with cols[1]:
+                    st.caption("Tile Side 2")
+                    for path in sides['Tile Side 2']:
+                        key = f"{path}_s2"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
         
-        # Swamps
-        st.subheader("🌿 Swamps")
-        for location, sides in hidden_path_config['Swamps'].items():
-            st.markdown(f"**{location}**")
-            cols = st.columns(2)
-            
-            # Tile Side 1
-            with cols[0]:
-                st.caption("Tile Side 1")
-                for path in sides['Tile Side 1']:
-                    key = f"{path}_s1"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-            
-            # Tile Side 2
-            with cols[1]:
-                st.caption("Tile Side 2")
-                for path in sides['Tile Side 2']:
-                    key = f"{path}_s2"
-                    hidden_paths[location][key] = st.checkbox(
-                        path,
-                        value=hidden_paths.get(location, {}).get(key, False),
-                        key=f"hp_{location}_{key}_{char_id}"
-                    )
-
-
+        with st.expander("🌲 Woods", expanded=True):
+            for location, sides in hidden_path_config['Woods'].items():
+                st.markdown(f"**{location}**")
+                cols = st.columns(2)
+                
+                # Tile Side 1
+                with cols[0]:
+                    st.caption("Tile Side 1")
+                    for path in sides['Tile Side 1']:
+                        key = f"{path}_s1"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+                
+                # Tile Side 2
+                with cols[1]:
+                    st.caption("Tile Side 2")
+                    for path in sides['Tile Side 2']:
+                        key = f"{path}_s2"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+        
+        with st.expander("🌾 Plains", expanded=True):
+            for location, sides in hidden_path_config['Plains'].items():
+                st.markdown(f"**{location}**")
+                cols = st.columns(2)
+                
+                # Tile Side 1
+                with cols[0]:
+                    st.caption("Tile Side 1")
+                    for path in sides['Tile Side 1']:
+                        key = f"{path}_s1"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+                
+                # Tile Side 2
+                with cols[1]:
+                    st.caption("Tile Side 2")
+                    for path in sides['Tile Side 2']:
+                        key = f"{path}_s2"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+        
+        with st.expander("🌿 Swamps", expanded=True):
+            for location, sides in hidden_path_config['Swamps'].items():
+                st.markdown(f"**{location}**")
+                cols = st.columns(2)
+                
+                # Tile Side 1
+                with cols[0]:
+                    st.caption("Tile Side 1")
+                    for path in sides['Tile Side 1']:
+                        key = f"{path}_s1"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
+                
+                # Tile Side 2
+                with cols[1]:
+                    st.caption("Tile Side 2")
+                    for path in sides['Tile Side 2']:
+                        key = f"{path}_s2"
+                        if location not in hidden_paths:
+                            hidden_paths[location] = {}
+                        if key not in hidden_paths[location]:
+                            hidden_paths[location][key] = False
+                            
+                        hidden_paths[location][key] = st.checkbox(
+                            path,
+                            value=hidden_paths[location].get(key, False),
+                            key=f"hp_{location}_{key}_{char_id}"
+                        )
     
     # Discoveries Section
     st.header("Discoveries")
@@ -584,7 +647,7 @@ def render_character_form(char_data, char_id=None):
     }
     
     # Auto-save
-    if autosave and char_id:
+    if autosave and char_id and char_id != "new_character":
         if updated_char_data != char_data:
             save_character(char_id, updated_char_data)
             st.caption("✅ Auto-saved")
@@ -595,7 +658,7 @@ def render_character_form(char_data, char_id=None):
     
     with col1:
         if st.button("💾 Save Character", type="primary", use_container_width=True):
-            if char_id:
+            if char_id and char_id != "new_character":
                 # Check if hero name changed
                 old_char_data = st.session_state.characters.get(char_id, {})
                 if hero_name != old_char_data.get('hero_name', ''):
@@ -627,7 +690,7 @@ def render_character_form(char_data, char_id=None):
                     st.error("❌ Failed to create character")
     
     with col2:
-        if char_id and st.button("🗑️ Delete Character", use_container_width=True):
+        if char_id and char_id != "new_character" and st.button("🗑️ Delete Character", use_container_width=True):
             if delete_character(char_id):
                 st.session_state.current_character = None
                 st.success("✅ Character deleted!")
