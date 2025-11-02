@@ -1,8 +1,6 @@
 import streamlit as st
-import json
-import os
 from datetime import datetime
-from pathlib import Path
+from repository import CharacterRepository
 
 # Set page configuration
 st.set_page_config(
@@ -12,18 +10,16 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Directory to store character sheets
-DATA_DIR = Path("character_sheets")
-DATA_DIR.mkdir(exist_ok=True)
+# Initialize repository
+@st.cache_resource
+def get_repository():
+    """Get or create the character repository instance"""
+    return CharacterRepository(storage_path="character_sheets")
 
 # Initialize session state
 if 'characters' not in st.session_state:
-    st.session_state.characters = {}
-    # Load existing character sheets
-    for file in DATA_DIR.glob("*.json"):
-        with open(file, 'r') as f:
-            char_data = json.load(f)
-            st.session_state.characters[file.stem] = char_data
+    repo = get_repository()
+    st.session_state.characters = repo.get_all()
 
 if 'current_character' not in st.session_state:
     st.session_state.current_character = None
@@ -36,11 +32,34 @@ if 'show_create_form' not in st.session_state:
 
 
 def save_character(char_id, char_data):
-    """Save character data to file"""
-    filepath = DATA_DIR / f"{char_id}.json"
-    with open(filepath, 'w') as f:
-        json.dump(char_data, f, indent=2)
-    st.session_state.characters[char_id] = char_data
+    """Save character data using repository"""
+    repo = get_repository()
+    if repo.save(char_id, char_data):
+        st.session_state.characters[char_id] = char_data
+        return True
+    return False
+
+
+def delete_character(char_id):
+    """Delete character using repository"""
+    repo = get_repository()
+    if repo.delete(char_id):
+        if char_id in st.session_state.characters:
+            del st.session_state.characters[char_id]
+        return True
+    return False
+
+
+def rename_character(old_char_id, new_char_id, char_data):
+    """Rename character using repository"""
+    repo = get_repository()
+    if repo.rename(old_char_id, new_char_id):
+        # Update session state
+        if old_char_id in st.session_state.characters:
+            del st.session_state.characters[old_char_id]
+        st.session_state.characters[new_char_id] = char_data
+        return True
+    return False
 
 
 def create_character_id(hero_name):
@@ -383,38 +402,39 @@ def render_character_form(char_data, char_id=None):
                 if hero_name != old_char_data.get('hero_name', ''):
                     # Create new ID with updated name
                     new_char_id = create_character_id(hero_name)
-                    save_character(new_char_id, updated_char_data)
                     
-                    # Delete old character
-                    old_file = DATA_DIR / f"{char_id}.json"
-                    if old_file.exists():
-                        old_file.unlink()
-                        del st.session_state.characters[char_id]
-                    
-                    st.session_state.current_character = new_char_id
-                    st.success(f"✅ Character saved as: {new_char_id}")
-                    st.rerun()
+                    # Save with new ID and delete old
+                    if save_character(new_char_id, updated_char_data):
+                        delete_character(char_id)
+                        st.session_state.current_character = new_char_id
+                        st.success(f"✅ Character saved as: {new_char_id}")
+                        st.rerun()
+                    else:
+                        st.error("❌ Failed to save character")
                 else:
-                    save_character(char_id, updated_char_data)
-                    st.success("✅ Character saved successfully!")
+                    if save_character(char_id, updated_char_data):
+                        st.success("✅ Character saved successfully!")
+                    else:
+                        st.error("❌ Failed to save character")
             else:
                 # New character
                 new_char_id = create_character_id(hero_name)
-                save_character(new_char_id, updated_char_data)
-                st.session_state.current_character = new_char_id
-                st.session_state.show_create_form = False
-                st.success(f"✅ Character created: {new_char_id}")
-                st.rerun()
+                if save_character(new_char_id, updated_char_data):
+                    st.session_state.current_character = new_char_id
+                    st.session_state.show_create_form = False
+                    st.success(f"✅ Character created: {new_char_id}")
+                    st.rerun()
+                else:
+                    st.error("❌ Failed to create character")
     
     with col2:
         if char_id and st.button("🗑️ Delete Character", use_container_width=True):
-            filepath = DATA_DIR / f"{char_id}.json"
-            if filepath.exists():
-                filepath.unlink()
-                del st.session_state.characters[char_id]
+            if delete_character(char_id):
                 st.session_state.current_character = None
-                st.success("Character deleted!")
+                st.success("✅ Character deleted!")
                 st.rerun()
+            else:
+                st.error("❌ Failed to delete character")
 
 
 def main():

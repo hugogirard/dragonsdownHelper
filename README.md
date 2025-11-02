@@ -5,15 +5,55 @@ A Streamlit web application for creating and managing character sheets for the D
 ## Features
 
 - **Character Management**: Create, save, and manage multiple character sheets
+- **Repository Pattern**: Clean separation of data persistence logic (easy to migrate to MongoDB or other databases)
 - **Auto-save**: Toggle auto-save functionality on/off
 - **Character Naming**: Characters are automatically named with the first 4 letters + timestamp format
 - **Comprehensive Tracking**:
   - Hero information (name, lineage, class, advantages)
   - Scenario and hero story
   - 30-line adventure journal
-  - Tiles visited across 5 terrain types (Caves, Mountains, Woods, Plains, Swamps)
-  - Hidden paths found
+  - Hidden paths found with predefined tile connections
   - Discoveries (15 different types)
+
+## Architecture
+
+### Repository Pattern
+
+The application uses a repository pattern for data persistence, making it easy to switch between different storage backends:
+
+- **Current Implementation**: JSON file storage (`CharacterRepository`)
+- **Future Ready**: MongoDB implementation stub included (`MongoCharacterRepository`)
+
+```python
+from repository import CharacterRepository
+
+# Initialize repository
+repo = CharacterRepository(storage_path="character_sheets")
+
+# Save a character
+repo.save(character_id, character_data)
+
+# Get a character
+character = repo.get(character_id)
+
+# Delete a character
+repo.delete(character_id)
+```
+
+### Project Structure
+
+```
+.
+├── main.py                      # Main Streamlit application
+├── repository/                  # Data persistence layer
+│   ├── __init__.py
+│   └── character_repository.py  # Repository implementation
+├── character_sheets/            # JSON storage directory
+├── test_repository.py          # Repository tests
+├── pyproject.toml              # Project configuration
+├── README.md                   # This file
+└── run.sh                      # Quick start script
+```
 
 ## Installation
 
@@ -48,11 +88,20 @@ The application will open in your default web browser at `http://localhost:8501`
    - Scenario
    - Hero Story
 3. Track your adventure:
-   - Check off tiles visited in different terrains
-   - Record hidden paths found
+   - Check off hidden paths for each location and tile side
    - Mark discoveries
    - Write journal entries (lines 1-30)
 4. Click **"Save Character"** to save your sheet
+
+### Hidden Paths System
+
+Each location has predefined hidden path connections across two tile sides:
+
+**Example - Ancient Hole (Caves):**
+- Tile Side 1: ☐ 1-6
+- Tile Side 2: ☐ 1-6, ☐ 3-4, ☐ 5-6
+
+Simply check the boxes for the paths you've discovered during your adventure.
 
 ### Auto-save Feature
 
@@ -75,25 +124,47 @@ The application will open in your default web browser at `http://localhost:8501`
 
 ## Data Structure
 
-Character data is stored as JSON files in the `character_sheets/` directory with the following structure:
+Character data is stored as JSON files with the following structure:
 
 - Hero information (name, lineage, class, advantages)
 - Adventure details (scenario, story)
-- Tiles visited (organized by terrain type and location)
-- Hidden paths (by terrain type)
-- Discoveries (boolean flags)
+- Hidden paths (specific tile connections per location)
+- Discoveries (boolean flags for each discovery type)
 - Journal entries (array of 30 strings)
 - Timestamps (created and last modified)
 
-## File Structure
+## Future Database Migration
 
+The repository pattern makes it easy to migrate to a NoSQL database like MongoDB:
+
+1. **Implement MongoDB Repository**: Complete the `MongoCharacterRepository` class in `repository/character_repository.py`
+2. **Update Initialization**: Change the repository initialization in `main.py`:
+   ```python
+   # From:
+   repo = CharacterRepository(storage_path="character_sheets")
+   
+   # To:
+   repo = MongoCharacterRepository(
+       connection_string="mongodb://localhost:27017",
+       database_name="dragonsdown"
+   )
+   ```
+3. **No Other Changes Needed**: The rest of the application code remains the same!
+
+### Benefits of Repository Pattern:
+- ✅ Separation of concerns
+- ✅ Easy to test
+- ✅ Easy to swap implementations
+- ✅ No business logic changes when switching databases
+
+## Testing the Repository
+
+Run the repository tests:
+```bash
+python test_repository.py
 ```
-.
-├── main.py                 # Main Streamlit application
-├── pyproject.toml         # Project configuration and dependencies
-├── README.md              # This file
-└── character_sheets/      # Directory for saved character JSON files
-```
+
+This will test all repository operations (save, get, update, delete, rename, etc.)
 
 ## Tips
 
