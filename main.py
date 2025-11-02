@@ -430,7 +430,7 @@ def render_character_form(char_data, char_id=None):
         }
         
         # Render each region as a collapsible expander
-        with st.expander("🏔️ Caves", expanded=True):
+        with st.expander("🏔️ Caves", expanded=st.session_state.sections_expanded):
             for location, sides in hidden_path_config['Caves'].items():
                 st.markdown(f"**{location}**")
                 cols = st.columns(2)
@@ -469,7 +469,7 @@ def render_character_form(char_data, char_id=None):
                             key=f"hp_{location}_{key}_{char_id}"
                         )
         
-        with st.expander("⛰️ Mountains", expanded=True):
+        with st.expander("⛰️ Mountains", expanded=st.session_state.sections_expanded):
             for location, sides in hidden_path_config['Mountains'].items():
                 st.markdown(f"**{location}**")
                 cols = st.columns(2)
@@ -506,7 +506,7 @@ def render_character_form(char_data, char_id=None):
                             key=f"hp_{location}_{key}_{char_id}"
                         )
         
-        with st.expander("🌲 Woods", expanded=True):
+        with st.expander("🌲 Woods", expanded=st.session_state.sections_expanded):
             for location, sides in hidden_path_config['Woods'].items():
                 st.markdown(f"**{location}**")
                 cols = st.columns(2)
@@ -543,7 +543,7 @@ def render_character_form(char_data, char_id=None):
                             key=f"hp_{location}_{key}_{char_id}"
                         )
         
-        with st.expander("🌾 Plains", expanded=True):
+        with st.expander("🌾 Plains", expanded=st.session_state.sections_expanded):
             for location, sides in hidden_path_config['Plains'].items():
                 st.markdown(f"**{location}**")
                 cols = st.columns(2)
@@ -580,7 +580,7 @@ def render_character_form(char_data, char_id=None):
                             key=f"hp_{location}_{key}_{char_id}"
                         )
         
-        with st.expander("🌿 Swamps", expanded=True):
+        with st.expander("🌿 Swamps", expanded=st.session_state.sections_expanded):
             for location, sides in hidden_path_config['Swamps'].items():
                 st.markdown(f"**{location}**")
                 cols = st.columns(2)
