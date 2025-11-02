@@ -4,6 +4,7 @@ A Streamlit web application for creating and managing character sheets for the D
 
 ## Features
 
+- **Realm Builder**: Generate randomized adventure realms from 2-5 land packs with unique tile orders
 - **Character Management**: Create, save, and manage multiple character sheets
 - **Repository Pattern**: Clean separation of data persistence logic (easy to migrate to MongoDB or other databases)
 - **Auto-save**: Toggle auto-save functionality on/off
@@ -77,6 +78,30 @@ streamlit run main.py
 The application will open in your default web browser at `http://localhost:8501`
 
 ## Usage
+
+## Usage
+
+### Creating a New Realm
+
+The Realm Builder helps you create randomized adventure realms:
+
+1. Click the **"Create New Realm"** button in the left sidebar
+2. Select between 2 and 5 land packs:
+   - 🏔️ Caves (5 tiles)
+   - ⛰️ Mountains (5 tiles)
+   - 🌲 Woods (5 tiles)
+   - 🌾 Plains (5 tiles)
+   - 🌿 Swamps (5 tiles)
+3. Click **"Generate Realm"** to create a randomized tile order
+4. The tiles will be displayed in a random order for exploration
+5. Use **"Regenerate Realm"** to create a new random order with the same land packs
+
+**Example:**
+- Select "Mountains" and "Caves" (2 land packs = 10 tiles total)
+- Random tiles might be: Black Caves, High Pass, Barriers, Dark Passes, Lonely Mountains, etc.
+- Each tile appears only once in the list
+
+**Note:** Realms are not saved - they're meant for one-time realm generation for your game sessions.
 
 ### Creating a New Character
 

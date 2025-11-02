@@ -30,6 +30,9 @@ if 'autosave' not in st.session_state:
 if 'show_create_form' not in st.session_state:
     st.session_state.show_create_form = False
 
+if 'show_realm_builder' not in st.session_state:
+    st.session_state.show_realm_builder = False
+
 
 def save_character(char_id, char_data):
     """Save character data using repository"""
@@ -67,6 +70,202 @@ def create_character_id(hero_name):
     name_prefix = hero_name[:4] if hero_name else "CHAR"
     date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
     return f"{name_prefix}_{date_str}"
+
+
+def get_all_tiles_by_land_pack():
+    """Return all tiles organized by land pack"""
+    return {
+        'Caves': [
+            'Ancient Hole',
+            'Black Caves',
+            'Dark Passes',
+            'Forlorn Tunnel',
+            'Secret Dens'
+        ],
+        'Mountains': [
+            'Barriers',
+            'High Pass',
+            'Lonely Mountains',
+            'Narrow Ridges',
+            'Tri-Peaks'
+        ],
+        'Woods': [
+            'Deep Woods',
+            'Elder Woods',
+            'Mirky Woods',
+            'Oakwood',
+            'Timberlands'
+        ],
+        'Plains': [
+            'Flatlands',
+            'Grassy Plains',
+            'The Meadows',
+            'Twisted Steppe',
+            'Unbroken Lands'
+        ],
+        'Swamps': [
+            'Decayed Swamp',
+            'Foul Swamp',
+            'Moorland',
+            'Putrid Waters',
+            'Quiet Bog'
+        ]
+    }
+
+
+def generate_realm_tiles(selected_land_packs):
+    """
+    Generate a randomized list of tiles from selected land packs
+    
+    Args:
+        selected_land_packs: List of land pack names
+        
+    Returns:
+        List of randomized tile names
+    """
+    import random
+    
+    all_tiles = get_all_tiles_by_land_pack()
+    realm_tiles = []
+    
+    # Collect all tiles from selected land packs
+    for land_pack in selected_land_packs:
+        if land_pack in all_tiles:
+            realm_tiles.extend(all_tiles[land_pack])
+    
+    # Randomize the order
+    random.shuffle(realm_tiles)
+    
+    return realm_tiles
+
+
+def render_realm_builder():
+    """Render the realm builder interface"""
+    st.title("🏰 Create New Realm")
+    
+    st.markdown("""
+    ### Build Your Adventure Realm
+    
+    Select between 2 and 5 land packs to create your realm. 
+    The tiles will be randomly ordered to create a unique adventure experience!
+    """)
+    
+    st.markdown("---")
+    
+    # Land pack selection
+    st.subheader("Select Land Packs (2-5)")
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        caves = st.checkbox("🏔️ Caves (5 tiles)", key="realm_caves")
+        mountains = st.checkbox("⛰️ Mountains (5 tiles)", key="realm_mountains")
+    
+    with col2:
+        woods = st.checkbox("🌲 Woods (5 tiles)", key="realm_woods")
+        plains = st.checkbox("🌾 Plains (5 tiles)", key="realm_plains")
+    
+    with col3:
+        swamps = st.checkbox("🌿 Swamps (5 tiles)", key="realm_swamps")
+    
+    # Collect selected land packs
+    selected_packs = []
+    if caves:
+        selected_packs.append('Caves')
+    if mountains:
+        selected_packs.append('Mountains')
+    if woods:
+        selected_packs.append('Woods')
+    if plains:
+        selected_packs.append('Plains')
+    if swamps:
+        selected_packs.append('Swamps')
+    
+    # Validation
+    num_selected = len(selected_packs)
+    
+    st.markdown("---")
+    
+    if num_selected < 2:
+        st.warning(f"⚠️ Please select at least 2 land packs. Currently selected: {num_selected}")
+    elif num_selected > 5:
+        st.error(f"❌ Please select maximum 5 land packs. Currently selected: {num_selected}")
+    else:
+        st.success(f"✅ {num_selected} land pack(s) selected - Total of {num_selected * 5} tiles")
+        
+        # Generate realm button
+        col1, col2, col3 = st.columns([1, 1, 2])
+        
+        with col1:
+            if st.button("🎲 Generate Realm", type="primary", use_container_width=True):
+                realm_tiles = generate_realm_tiles(selected_packs)
+                st.session_state.generated_realm = {
+                    'land_packs': selected_packs,
+                    'tiles': realm_tiles
+                }
+        
+        with col2:
+            if st.button("🔙 Back to Home", use_container_width=True):
+                st.session_state.show_realm_builder = False
+                if 'generated_realm' in st.session_state:
+                    del st.session_state.generated_realm
+                st.rerun()
+    
+    # Display generated realm
+    if 'generated_realm' in st.session_state:
+        st.markdown("---")
+        realm = st.session_state.generated_realm
+        
+        st.header("🗺️ Your Realm")
+        
+        # Display selected land packs
+        st.subheader("Selected Land Packs:")
+        cols = st.columns(len(realm['land_packs']))
+        icons = {'Caves': '🏔️', 'Mountains': '⛰️', 'Woods': '🌲', 'Plains': '🌾', 'Swamps': '🌿'}
+        
+        for idx, pack in enumerate(realm['land_packs']):
+            with cols[idx]:
+                st.info(f"{icons.get(pack, '📍')} **{pack}**")
+        
+        st.markdown("---")
+        
+        # Display tiles in order
+        st.subheader(f"Realm Tiles (Total: {len(realm['tiles'])})")
+        st.caption("Tiles are listed in the order they should be discovered/explored")
+        
+        # Display tiles in a numbered list with columns
+        num_cols = 2
+        tile_cols = st.columns(num_cols)
+        
+        for idx, tile in enumerate(realm['tiles'], 1):
+            col_idx = (idx - 1) % num_cols
+            with tile_cols[col_idx]:
+                # Determine which land pack this tile belongs to
+                all_tiles = get_all_tiles_by_land_pack()
+                tile_pack = None
+                for pack, tiles in all_tiles.items():
+                    if tile in tiles:
+                        tile_pack = pack
+                        break
+                
+                icon = icons.get(tile_pack, '📍')
+                st.markdown(f"**{idx}.** {icon} {tile} *({tile_pack})*")
+        
+        # Regenerate button
+        st.markdown("---")
+        col1, col2, col3 = st.columns([1, 1, 2])
+        
+        with col1:
+            if st.button("🔄 Regenerate Realm", use_container_width=True):
+                realm_tiles = generate_realm_tiles(realm['land_packs'])
+                st.session_state.generated_realm['tiles'] = realm_tiles
+                st.rerun()
+        
+        with col2:
+            if st.button("📋 Copy to Clipboard", use_container_width=True):
+                tile_list = "\n".join([f"{i}. {tile}" for i, tile in enumerate(realm['tiles'], 1)])
+                st.code(tile_list, language=None)
+                st.success("✅ Tile list displayed above - you can copy it!")
 
 
 def get_empty_character():
@@ -445,6 +644,14 @@ def main():
         # Create New Character Button
         if st.button("➕ Create New Character", type="primary", use_container_width=True):
             st.session_state.show_create_form = True
+            st.session_state.show_realm_builder = False
+            st.session_state.current_character = None
+            st.rerun()
+        
+        # Create New Realm Button
+        if st.button("🏰 Create New Realm", type="secondary", use_container_width=True):
+            st.session_state.show_realm_builder = True
+            st.session_state.show_create_form = False
             st.session_state.current_character = None
             st.rerun()
         
@@ -464,6 +671,7 @@ def main():
                 if st.button(label, key=f"btn_{char_id}", use_container_width=True):
                     st.session_state.current_character = char_id
                     st.session_state.show_create_form = False
+                    st.session_state.show_realm_builder = False
                     st.rerun()
         else:
             st.info("No characters yet. Create your first character!")
@@ -472,7 +680,9 @@ def main():
         st.caption("Dragons Down Adventure Journal v1.0")
     
     # Main content area
-    if st.session_state.show_create_form:
+    if st.session_state.show_realm_builder:
+        render_realm_builder()
+    elif st.session_state.show_create_form:
         render_character_form(get_empty_character())
     elif st.session_state.current_character:
         char_id = st.session_state.current_character
@@ -483,12 +693,13 @@ def main():
         st.markdown("""
         ### Getting Started
         
-        Click **"Create New Character"** in the sidebar to begin your adventure!
+        - Click **"Create New Character"** to begin tracking a character's adventure
+        - Click **"Create New Realm"** to generate a randomized realm for your game
         
         #### Features:
         - 📝 Create and manage multiple character sheets
-        - 💾 Manual save or auto-save functionality
-        - 🗺️ Track tiles visited across 5 terrain types
+        - 🏰 Generate randomized realms from 2-5 land packs
+        - � Manual save or auto-save functionality
         - 🔍 Record hidden paths and discoveries
         - 📖 Keep a 30-line adventure journal
         - 🏷️ Characters automatically named with first 4 letters + timestamp
