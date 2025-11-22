@@ -1,0 +1,196 @@
+{
+    "classes": [
+        {
+            "id": "archer",
+            "name": "Archer",
+            "advantage": "Steady",
+            "description": "Archers have spent a lifetime honing their targeting skills. Archers may reroll one ranged attack die per attack."
+        },
+        {
+            "id": "assassin",
+            "name": "Assassin",
+            "advantage": "Backstab",
+            "description": "The assassin is skilled at stalking their target. Assassins may ambush with a melee weapon, after which the assassin becomes unhidden."
+        },
+        {
+            "id": "barbarian",
+            "name": "Barbarian",
+            "advantage": "Mountain Lore",
+            "description": "Barbarians grew up in the mountains. Barbarians may reroll one die during each search action performed in a mountain clearing."
+        },
+        {
+            "id": "bard",
+            "name": "Bard",
+            "advantage": "Musical",
+            "description": "Bards are entertainers and minstrels in addition to being heroic. If the bard is in a civilization location at the end of the combat phase, they roll one mission die and receive the reward rolled."
+        },
+        {
+            "id": "battle-mage",
+            "name": "Battle Mage",
+            "advantage": "Power",
+            "description": "The Battle Mage has honed the combination of magic and martial skills into one discipline. The Battle Mage may play one purple magic cube as if it is a red might cube each combat round."
+        },
+        {
+            "id": "beastmaster",
+            "name": "Beastmaster",
+            "advantage": "Faunamancy",
+            "description": "Beastmasters can speak to wandering monsters and control them. Wandering monsters do not block, challenge, or target a beastmaster. A beastmaster may attempt to hire a wandering monster via a hire action."
+        },
+        {
+            "id": "berserker",
+            "name": "Berserker",
+            "advantage": "Berserk",
+            "description": "Berserkers can go into a frenzy in combat. Once per combat during the challenge step, the berserker may convert one action cube of any type into a heart for the duration of combat."
+        },
+        {
+            "id": "black-knight",
+            "name": "Black Knight",
+            "advantage": "Feared",
+            "description": "The Black Knight is a greatly-feared veteran of many wars, causing negotiations to go a little bit easier than for others. The Black Knight may reroll one haggle die once per trade action."
+        },
+        {
+            "id": "brigand",
+            "name": "Brigand",
+            "advantage": "Brotherhood",
+            "description": "The brigand is the former leader of the bandits that have been plaguing the land. The brigand begins the game with an outlaw token. The bandits will neither block nor attack the brigand."
+        },
+        {
+            "id": "burgess",
+            "name": "Burgess",
+            "advantage": "Shrewd",
+            "description": "Burgesses became wealthy by being shrewd and clever negotiators. The starting price for the burgess to hire a native is 3x the fame value, not 4x."
+        },
+        {
+            "id": "cleric",
+            "name": "Cleric",
+            "advantage": "Divine Protection",
+            "description": "Clerics have the divine on their side. Any summoning die roll that would summon or move undead monsters to the cleric's clearing may be rerolled once per turn."
+        },
+        {
+            "id": "conjurer",
+            "name": "Conjurer",
+            "advantage": "Mastery",
+            "description": "Conjurers can control the random aspects of magic. Conjurers may reroll one die for the effects of a blue spell."
+        },
+        {
+            "id": "druid",
+            "name": "Druid",
+            "advantage": "Natural Emanation",
+            "description": "Druids know the magic of nature. Druids may choose not to wound green magic cubes in a spell box containing a wound symbol when casting spells."
+        },
+        {
+            "id": "enchanter",
+            "name": "Enchanter",
+            "advantage": "Aura",
+            "description": "Enchanters are adept at enchanting the world. Enchanters enchant a tile using one action less than normal."
+        },
+        {
+            "id": "executioner",
+            "name": "Executioner",
+            "advantage": "Intimidation",
+            "description": "The Executioner is an intimidating opponent that causes others to think twice before acting. In the first round of combat, the attack speed of all natives targeting the executioner is -1."
+        },
+        {
+            "id": "explorer",
+            "name": "Explorer",
+            "advantage": "Perceptive",
+            "description": "Explorers have a keen eye for the unknown. Once per explore or move action, upon revealing a wilderness token in a map tile, the explorer may mix the token back into the pool and draw another one."
+        },
+        {
+            "id": "illusionist",
+            "name": "Illusionist",
+            "advantage": "Focus",
+            "description": "Illusionists are extremely focused on their targets. When casting a spell with a Target or Self or Other symbol on it, the illusionist may choose not to wound a cube."
+        },
+        {
+            "id": "knight",
+            "name": "Knight",
+            "advantage": "Health",
+            "description": "Knights are in excellent physical shape and skilled at dressing battlefield wounds. A knight may rest 1 cube for each rest action taken."
+        },
+        {
+            "id": "magician",
+            "name": "Magician",
+            "advantage": "Knowledge",
+            "description": "Magicians know a little bit about many types of magic colors. Magicians may use any color of magic cube on the 2nd box of a spell card."
+        },
+        {
+            "id": "necromancer",
+            "name": "Necromancer",
+            "advantage": "Gravecalling",
+            "description": "Necromancers have the ability to reanimate the dead as skeletal minions. Place one animated skeleton counter in the clearing for each hero or monster killed, maximum of 4 skeletons."
+        },
+        {
+            "id": "outcast",
+            "name": "Outcast",
+            "advantage": "Overlooked",
+            "description": "The outcast grew up on the edges of society. The outcast may loot a merchant's treasures and items as if it were a found treasure site. When selling, receives half gold value."
+        },
+        {
+            "id": "paladin",
+            "name": "Paladin",
+            "advantage": "Honor",
+            "description": "Paladins are very honorable in all of their dealings. When a paladin earns one or more LPs on a title, they earn +1 LP."
+        },
+        {
+            "id": "ranger",
+            "name": "Ranger",
+            "advantage": "Woods Lore",
+            "description": "Rangers know the woods after spending years in the wilderness. When in woods clearings, rangers may reroll one search die during each search action."
+        },
+        {
+            "id": "rogue",
+            "name": "Rogue",
+            "advantage": "Elusive",
+            "description": "Rogues are quick on their feet and hard to catch. When evading, rogues that tie the maneuver speed of the fastest challenger may roll the two hit dice and successfully evade on a hit or equal sign result."
+        },
+        {
+            "id": "runesword",
+            "name": "Runesword",
+            "advantage": "Control",
+            "description": "Runeswords have spent a lifetime learning about artifacts and how to control them. Runeswords may use a blue magic cube on any color of magic box on treasure cards."
+        },
+        {
+            "id": "sorcerer",
+            "name": "Sorcerer",
+            "advantage": "Specialized",
+            "description": "Sorcerers are adept at casting magic using one discipline. If a sorcerer casts a spell using only one color of magic cube, the attack speed of the spell is +1."
+        },
+        {
+            "id": "soulless",
+            "name": "Soulless",
+            "advantage": "Incorporeal",
+            "description": "The Soulless have a limited physical body, more akin to a spirit than a living creature. Soulless may use all hidden paths when in their normal form."
+        },
+        {
+            "id": "trickster",
+            "name": "Trickster",
+            "advantage": "Illusionary Speed",
+            "description": "The trickster is often underestimated because they are masters of role-playing. When attacking, the trickster may change one hit die result from an equal symbol to a hit symbol."
+        },
+        {
+            "id": "warlock",
+            "name": "Warlock",
+            "advantage": "Blood Lust",
+            "description": "Warlocks heal at the expense of others. Warlocks heal one cube each time the warlock hits an unarmored, non-undead enemy with a non-spell attack."
+        },
+        {
+            "id": "warrior",
+            "name": "Warrior",
+            "advantage": "Adept",
+            "description": "Warriors have great dexterity and coordination. During the adjust equipment step of combat, warriors may always unequip one weapon card and equip another weapon card."
+        },
+        {
+            "id": "witch",
+            "name": "Witch",
+            "advantage": "Familiar",
+            "description": "The Witch is a purveyor of arcane magic and has a familiar which does the Witch's bidding. The familiar may only move, explore, and search."
+        },
+        {
+            "id": "wizard",
+            "name": "Wizard",
+            "advantage": "Studious",
+            "description": "Wizards have spent years reading ancient texts and arcane runes. Wizards may reroll one learn spells die once per learn spells action."
+        }
+    ]
+}

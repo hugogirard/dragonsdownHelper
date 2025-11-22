@@ -1,0 +1,1127 @@
+{
+    "treasures": [
+        {
+            "id": "adamantium-blade",
+            "name": "Adamantium Blade",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. The optional might cube box on this card is automatically filled and does not count against the cube limit."
+        },
+        {
+            "id": "alchemical-lure",
+            "name": "Alchemical Lure",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "During the challenge step of combat, select one monster in the clearing and choose a hero, native, or monster to be challenged, targeted, and attacked by the monster this combat round."
+        },
+        {
+            "id": "alchemists-mixture",
+            "name": "Alchemist's Mixture",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "Permanently replace one color of magic cube with another color."
+        },
+        {
+            "id": "arcane-bond",
+            "name": "Arcane Bond",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "During one hire action, the hire cost in gold is equal to the fame value. Must be used prior to any haggle attempts."
+        },
+        {
+            "id": "arcane-sword",
+            "name": "Arcane Sword",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. Melee weapon. One box of this weapon must be filled with a magic cube. An enchantment cube in the map tile may be used to fill this box."
+        },
+        {
+            "id": "armageddon-hammer",
+            "name": "Armageddon Hammer",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Epic",
+            "description": "Epic treasure. Melee weapon. Optional might cube box on this card is automatically filled and does not count against the cube limit."
+        },
+        {
+            "id": "artificers-concoction",
+            "name": "Artificer's Concoction",
+            "type": "Weapon",
+            "subtype": "Ranged",
+            "rarity": "One-Time",
+            "description": "One-time use. Ranged weapon."
+        },
+        {
+            "id": "ascendant-ornament",
+            "name": "Ascendant Ornament",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A purple magic cube placed on this treasure counts as a might cube on any might box on an active card of this hero. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "band-of-sagacity",
+            "name": "Band of Sagacity",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A yellow magic cube placed on this treasure allows the hero to reroll a hit die roll by or against them one time per combat round. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "banner-of-the-brigands",
+            "name": "Banner of the Brigands",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "All heroes in the clearing gain 1 matching respected icon with bashkirs, rogues, and sellswords. All heroes lose 1 matching respected icon with knights, soldiers, and watch. Must always be face-up."
+        },
+        {
+            "id": "banner-of-legitimacy",
+            "name": "Banner of Legitimacy",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "All heroes in the clearing lose 1 matching respected icon with bashkirs, rogues, and sellswords. All heroes gain 1 matching respected icon with knights, soldiers, and watch. Must always be face-up."
+        },
+        {
+            "id": "bards-bouzouki",
+            "name": "Bard's Bouzouki",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero has +1 cunning, wisdom, and charisma while equipped. The effects are cumulative with other treasures."
+        },
+        {
+            "id": "baton-of-the-lost-prince",
+            "name": "Baton of the Lost Prince",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero has +1 matching respected icon during a hire action. The effects are cumulative with other treasures."
+        },
+        {
+            "id": "battle-staff",
+            "name": "Battle Staff",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. The required might box on this card is automatically filled and does not count against the hero's cube limit."
+        },
+        {
+            "id": "bauble-of-cunning",
+            "name": "Bauble of Cunning",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Increases the cunning attribute of the hero by one."
+        },
+        {
+            "id": "bejeweled-breastplate",
+            "name": "Bejeweled Breastplate",
+            "type": "Armor",
+            "rarity": "Valuable",
+            "description": "Armor. Valuable."
+        },
+        {
+            "id": "bejeweled-helm",
+            "name": "Bejeweled Helm",
+            "type": "Armor",
+            "rarity": "Valuable",
+            "description": "Armor. Valuable."
+        },
+        {
+            "id": "bejeweled-shield",
+            "name": "Bejeweled Shield",
+            "type": "Armor",
+            "rarity": "Valuable",
+            "description": "Armor. Valuable."
+        },
+        {
+            "id": "belt-of-expansion",
+            "name": "Belt of Expansion",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Gain two additional miscellaneous positions in which to carry cards."
+        },
+        {
+            "id": "belt-of-the-beast",
+            "name": "Belt of the Beast",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one might cube while the treasure is equipped."
+        },
+        {
+            "id": "bow-of-the-hunt",
+            "name": "Bow of the Hunt",
+            "type": "Weapon",
+            "subtype": "Ranged",
+            "rarity": "Epic",
+            "description": "Epic treasure. Extra sharp. Ranged weapon."
+        },
+        {
+            "id": "bracelets-of-finesse",
+            "name": "Bracelets of Finesse",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May place one red might cube from the hero's healthy box in an attack speed or maneuver speed box. This cube counts against the combat round limit."
+        },
+        {
+            "id": "bracers-of-vigor",
+            "name": "Bracers of Vigor",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May place one brown speed cube from the hero's healthy box in a might box. This cube counts against the combat round limit."
+        },
+        {
+            "id": "broche-of-deflection",
+            "name": "Broche of Deflection",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Cancel one hit against the equipped hero."
+        },
+        {
+            "id": "brogans-of-the-birds",
+            "name": "Brogans of the Birds",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May fly during combat and for one move action taken each turn."
+        },
+        {
+            "id": "cape-of-alteration",
+            "name": "Cape of Alteration",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Healthy might cubes may only be placed in speed boxes. Healthy speed cubes may only be placed in might action boxes."
+        },
+        {
+            "id": "casting-lens",
+            "name": "Casting Lens",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the hero selects one spell on an active treasure card to be cast. No magic cubes are needed. The spell is removed from the game when it expires."
+        },
+        {
+            "id": "champions-blade",
+            "name": "Champion's Blade",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. Melee weapon. The attack speed of the champion's blade is always +1."
+        },
+        {
+            "id": "champions-plate",
+            "name": "Champion's Plate",
+            "type": "Armor",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. Armor. Armor value of 4. Weight of 3. Cancels two swords."
+        },
+        {
+            "id": "charismatic-gemstone",
+            "name": "Charismatic Gemstone",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Increases the charisma attribute of the hero by one."
+        },
+        {
+            "id": "cipherstone",
+            "name": "Cipherstone",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Prior to rolling the dice, automatically learn one spell on an active treasure card during a learn spells action. Must have matching magic cube."
+        },
+        {
+            "id": "clashing-ring",
+            "name": "Clashing Ring",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Placing a brown speed cube here increases the attack speed of the hero by one. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "clodpoll-club",
+            "name": "Clodpoll Club",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Must have less than 8 total active attribute icons to equip. If the hero has 8 or more active attribute icons at any time, the card is immediately unequipped."
+        },
+        {
+            "id": "codex-of-cognition",
+            "name": "Codex of Cognition",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May reroll one die during each learn spells action."
+        },
+        {
+            "id": "coronet-of-the-lost-prince",
+            "name": "Coronet of the Lost Prince",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero has +1 matching respected icon during a hire action. The effects are cumulative with other treasures."
+        },
+        {
+            "id": "cursed-axe",
+            "name": "Cursed Axe",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Extra sharp. May not roll the hit dice. This weapon must be faster than its target's maneuver speed to hit."
+        },
+        {
+            "id": "cursed-treasure",
+            "name": "Cursed Treasure",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Instant. Draw a treasure card from the pool to replace this card. Then roll on the curse table to determine a curse that affects the hero. Then remove this card from the game."
+        },
+        {
+            "id": "dagger-of-bite",
+            "name": "Dagger of Bite",
+            "type": "Weapon",
+            "subtype": "Melee/Ranged",
+            "rarity": "Standard",
+            "description": "Melee and ranged weapon. Extra sharp."
+        },
+        {
+            "id": "dancing-sword",
+            "name": "Dancing Sword",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Epic",
+            "description": "Epic treasure. The attack speed of the Dancing Sword is always +1."
+        },
+        {
+            "id": "decimation",
+            "name": "Decimation",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A black magic cube may be placed on Decimation to increase the damage delivered."
+        },
+        {
+            "id": "diggers-ruin",
+            "name": "Digger's Ruin",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one search die once per search action while in a cave clearing."
+        },
+        {
+            "id": "disenchanter",
+            "name": "Disenchanter",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "While revealed, immediately remove any magic cube on the map tile. The map tile may not be enchanted for any reason. Must always be face-up."
+        },
+        {
+            "id": "dust-of-destiny",
+            "name": "Dust of Destiny",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Reroll any one die or dice roll in which you are the active hero, the target, or the attacker."
+        },
+        {
+            "id": "earthen-cincture",
+            "name": "Earthen Cincture",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one green magic cube while the treasure is equipped."
+        },
+        {
+            "id": "elemental-spherule",
+            "name": "Elemental Spherule",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Elemental is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "elven-amulet",
+            "name": "Elven Amulet",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one search die once per search action while in a woods clearing."
+        },
+        {
+            "id": "elven-helm",
+            "name": "Elven Helm",
+            "type": "Armor",
+            "rarity": "Standard",
+            "description": "Armor. Armor value of 1. No weight. Attacks that hit this armor cause no wounds."
+        },
+        {
+            "id": "elven-shield",
+            "name": "Elven Shield",
+            "type": "Armor",
+            "rarity": "Standard",
+            "description": "Armor. Armor value of 1. No weight. Attacks that hit this armor cause no wounds."
+        },
+        {
+            "id": "elven-slippers",
+            "name": "Elven Slippers",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A green magic cube placed on this treasure increases maneuver speed by one. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "elven-vest",
+            "name": "Elven Vest",
+            "type": "Armor",
+            "rarity": "Standard",
+            "description": "Armor. Armor value of 1. No weight. Attacks that hit this armor cause no wounds."
+        },
+        {
+            "id": "enchanted-treasure",
+            "name": "Enchanted Treasure",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Instant. Draw a treasure card from the pool to replace this treasure. The map tile is flipped over and enchanted. Place a magic cube matching the color shown. Then remove this card from the game."
+        },
+        {
+            "id": "eternium-grimoire",
+            "name": "Eternium Grimoire",
+            "type": "Accessory",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. When equipped, the player selects one of their hero's healthy magic cubes and replaces it with another magic cube of their choice. During an alert action, the hero may change the transformed cube to any color."
+        },
+        {
+            "id": "explorers-boots",
+            "name": "Explorer's Boots",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May use all hidden paths without finding them. Hidden paths do not become known by the hero, but they may be used."
+        },
+        {
+            "id": "fade-essence",
+            "name": "Fade Essence",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The hero is immediately hidden. Can be used during the action phase or the cleanup step of combat, including after a failed hide roll."
+        },
+        {
+            "id": "figurine-of-the-stalk",
+            "name": "Figurine of the Stalk",
+            "type": "Special",
+            "rarity": "Epic",
+            "description": "Epic treasure. Valuable. During the challenge step of combat, monsters always challenge an unhidden hero that possesses the figurine of the stalk. Must always be face-up."
+        },
+        {
+            "id": "foci-of-the-spellcaster",
+            "name": "Foci of the Spellcaster",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May place one magic cube in a might box. This cube must come from the hero's healthy box and counts against the combat round limit."
+        },
+        {
+            "id": "gage-of-the-thief",
+            "name": "Gage of the Thief",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one loot die once per loot action."
+        },
+        {
+            "id": "galdric-of-enchantment",
+            "name": "Galdric of Enchantment",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The tile containing the hero immediately flips over and is enchanted with a magic color of the hero's choice. If used while the disenchanter is in the tile, the galdric is discarded with no effect."
+        },
+        {
+            "id": "garb-of-the-gate",
+            "name": "Garb of the Gate",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May move to any revealed gate clearing paying normal movement costs as if connected by a path."
+        },
+        {
+            "id": "gauntlets-of-brawn",
+            "name": "Gauntlets of Brawn",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Counts as one might cube in an existing might box on a card. Does not add a might box to the card. This cube does not count against the combat round limit."
+        },
+        {
+            "id": "gloves-of-aggression",
+            "name": "Gloves of Aggression",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Counts as one brown speed cube in an existing attack speed box. Does not add an attack speed box. This cube does not count against the combat round limit."
+        },
+        {
+            "id": "golden-icon",
+            "name": "Golden Icon",
+            "type": "Valuable",
+            "rarity": "Epic",
+            "description": "Epic treasure. Valuable."
+        },
+        {
+            "id": "grommels-talisman",
+            "name": "Grommel's Talisman",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one search die once per search action while in a swamp clearing."
+        },
+        {
+            "id": "guard-charm",
+            "name": "Guard Charm",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. May discard this treasure instead of taking one wound."
+        },
+        {
+            "id": "hamblens-pendant",
+            "name": "Hamblen's Pendant",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one search die once per search action while in a mountain clearing."
+        },
+        {
+            "id": "hand-of-the-lich",
+            "name": "Hand of the Lich",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero must wound one cube each turn at the end of their action phase. The attack speed of all spells cast by this hero is +1."
+        },
+        {
+            "id": "harmonic-hand-axe",
+            "name": "Harmonic Hand Axe",
+            "type": "Weapon",
+            "subtype": "Melee/Ranged",
+            "rarity": "Standard",
+            "description": "Melee and ranged weapon. Does not lose a sword icon when striking armor."
+        },
+        {
+            "id": "hawkeye",
+            "name": "Hawkeye",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May reroll one search die once per search action while in a plains clearing."
+        },
+        {
+            "id": "helm-of-true-sight",
+            "name": "Helm of True Sight",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May reroll any number of dice once during each search action."
+        },
+        {
+            "id": "hex-of-servitude",
+            "name": "Hex of Servitude",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The hero may attempt to hire any native in the clearing during one hire action, not just the highest numbered native of a native group."
+        },
+        {
+            "id": "holdfast-leathers",
+            "name": "Holdfast Leathers",
+            "type": "Armor",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. Armor. Armor value of 2. Weight of 1. Cancels one sword. Attacks that hit this armor cause no wounds."
+        },
+        {
+            "id": "horn-of-the-dark-angel",
+            "name": "Horn of the Dark Angel",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Fiery Chasm is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "icon-of-the-dragon",
+            "name": "Icon of the Dragon",
+            "type": "Special",
+            "rarity": "Epic",
+            "description": "Epic treasure. Valuable. During monster activation, it summons as if a malevolent mountain summoning symbol and a Sound summoning symbol are printed on the map tile. Must always be face-up."
+        },
+        {
+            "id": "igneous-flame",
+            "name": "Igneous Flame",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Fireball is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "incanters-jewel",
+            "name": "Incanter's Jewel",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one blue magic cube while the treasure is equipped."
+        },
+        {
+            "id": "jeweled-thiefs-skull",
+            "name": "Jeweled Thief's Skull",
+            "type": "Valuable",
+            "rarity": "Epic",
+            "description": "Epic treasure. Valuable."
+        },
+        {
+            "id": "kings-pardon",
+            "name": "King's Pardon",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When in a civilization location, the hero may discard up to two of their outlaw tokens. May not be used to discard other player's outlaw tokens."
+        },
+        {
+            "id": "mace-of-absolution",
+            "name": "Mace of Absolution",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Must have 3 or more active wisdom attribute icons to equip. The optional might cube box on this card is automatically filled and does not count against the cube limit."
+        },
+        {
+            "id": "mace-of-smiting",
+            "name": "Mace of Smiting",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. A required might box is automatically filled and does not count against the hero's cube limit."
+        },
+        {
+            "id": "mageshift-medallion",
+            "name": "Mageshift Medallion",
+            "type": "Accessory",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. When equipped, the player selects one of the hero's magic cubes and replaces it with 2 might cubes. If unequipped, the two might cubes are returned and the original magic cube is returned."
+        },
+        {
+            "id": "magical-bowl-of-mixing",
+            "name": "Magical Bowl of Mixing",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A blue magic cube placed on this treasure permanently converts a single magic cube from one color to another color, in either direction, as shown."
+        },
+        {
+            "id": "mirror-of-idolatry",
+            "name": "Mirror of Idolatry",
+            "type": "Special",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero may not sneak or alert while possessing this card. Must always be face-up."
+        },
+        {
+            "id": "mithral-chainmail",
+            "name": "Mithral Chainmail",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. Armor. Cancels one sword. Lighter than normal chainmail."
+        },
+        {
+            "id": "mithral-plate-armor",
+            "name": "Mithral Plate Armor",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. Armor. Cancels one sword. Lighter than normal plate armor."
+        },
+        {
+            "id": "mithral-shield",
+            "name": "Mithral Shield",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. Armor. Cancels one sword. Lighter than a normal shield."
+        },
+        {
+            "id": "orb-of-far-sight",
+            "name": "Orb of Far Sight",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. May perform a search action in any clearing in the current map tile or an adjacent map tile. Upon a successful search of an adjacent tile which has no tokens, place a matching token."
+        },
+        {
+            "id": "panacea-of-persuasion",
+            "name": "Panacea of Persuasion",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The hero has +1 cunning, wisdom, and charisma this turn. The effects are cumulative with other treasures."
+        },
+        {
+            "id": "peace-pendant",
+            "name": "Peace Pendant",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Peace is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "pebble-of-irritation",
+            "name": "Pebble of Irritation",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Discord is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "portable-hole",
+            "name": "Portable Hole",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, the spell Teleport is cast. No magic cubes are needed to cast this spell."
+        },
+        {
+            "id": "potion-of-energy",
+            "name": "Potion of Energy",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. One additional speed cube from the healthy box may be played each combat round until the end of combat."
+        },
+        {
+            "id": "potion-of-flight",
+            "name": "Potion of Flight",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Until the end of the next Action phase, this hero may fly."
+        },
+        {
+            "id": "potion-of-healing",
+            "name": "Potion of Healing",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Move all cubes from the wounded box to the healthy box."
+        },
+        {
+            "id": "potion-of-maneuver",
+            "name": "Potion of Maneuver",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one brown speed cube permanently."
+        },
+        {
+            "id": "potion-of-might",
+            "name": "Potion of Might",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one red might cube permanently."
+        },
+        {
+            "id": "potion-of-relief",
+            "name": "Potion of Relief",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Remove all curses and permanent spell effects. May not be used to selectively remove curses and spells."
+        },
+        {
+            "id": "quick-ring",
+            "name": "Quick Ring",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Placing a brown speed cube here increases the maneuver speed of the hero by one."
+        },
+        {
+            "id": "ring-of-malevolence",
+            "name": "Ring of Malevolence",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one black magic cube while the treasure is equipped."
+        },
+        {
+            "id": "ring-of-strength",
+            "name": "Ring of Strength",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "The optional might box on one equipped weapon is automatically filled without using a might cube."
+        },
+        {
+            "id": "ring-of-the-magi",
+            "name": "Ring of the Magi",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Enchanting a tile requires one enchant action less to take effect."
+        },
+        {
+            "id": "ring-of-truth",
+            "name": "Ring of Truth",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one white magic cube while the treasure is equipped."
+        },
+        {
+            "id": "robe-of-the-chanter",
+            "name": "Robe of the Chanter",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one yellow magic cube while the treasure is equipped."
+        },
+        {
+            "id": "robust-ring",
+            "name": "Robust Ring",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Receive +1 health while the treasure is equipped."
+        },
+        {
+            "id": "sabre-of-the-fencer",
+            "name": "Sabre of the Fencer",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. May place one speed cube on this card to count as a might cube. Has the attack length of a great sword."
+        },
+        {
+            "id": "satchel-of-a-giant",
+            "name": "Satchel of a Giant",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Instant. The hero draws and keeps two treasure cards (not deep treasure cards), then remove the Satchel of a Giant card from the game."
+        },
+        {
+            "id": "scepter-of-the-sorcerer",
+            "name": "Scepter of the Sorcerer",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one purple magic cube while the item is equipped."
+        },
+        {
+            "id": "sending-stones",
+            "name": "Sending Stones",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. May perform one trade action as if they were in any clearing already on the map. The hero is not actually in the selected clearing."
+        },
+        {
+            "id": "shadow-cloak",
+            "name": "Shadow Cloak",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Reroll any hide reaction once per turn. Must reroll all dice."
+        },
+        {
+            "id": "shamans-kaftan",
+            "name": "Shaman's Kaftan",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. Any magic cube placed on this treasure turns it into armor. If no magic cube is on the kaftan, then the kaftan is ignored and cannot be damaged. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "shield-of-defiance",
+            "name": "Shield of Defiance",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. Armor. Armor value of 3. Weight of 2."
+        },
+        {
+            "id": "shield-of-mercy",
+            "name": "Shield of Mercy",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic treasure. This treasure may be used as a normal shield. If a white magic cube is placed on this treasure during a combat round, the hero takes no wounds from any hits that are blocked by this shield, even if the shield is destroyed."
+        },
+        {
+            "id": "shield-of-the-lost-prince",
+            "name": "Shield of the Lost Prince",
+            "type": "Armor",
+            "rarity": "Epic",
+            "description": "Epic Treasure. Armor. Armor value of 2. Weight of 2. Cancels 1 extra sword icon."
+        },
+        {
+            "id": "shoes-of-the-thief",
+            "name": "Shoes of the Thief",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "May evade as if the hero had placed three maneuver cubes. No cubes are placed and no additional cubes may be added to make it faster."
+        },
+        {
+            "id": "sin-sword",
+            "name": "Sin Sword",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Must have 3 or more active intelligence attribute icons to equip. The optional might cube box on this card is automatically filled and does not count against the cube limit."
+        },
+        {
+            "id": "skeleton-key",
+            "name": "Skeleton Key",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Opens the monolith and chamber. Avoids hidden traps at the secret cache, hideout, and wrecked wagons."
+        },
+        {
+            "id": "skull-splitter",
+            "name": "Skull Splitter",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Legendary",
+            "description": "Legendary treasure. Melee weapon. One mandatory might cube box on this card is automatically filled and does not count against the cube limit."
+        },
+        {
+            "id": "sparkler-of-wisdom",
+            "name": "Sparkler of Wisdom",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Increases the wisdom attribute of the hero by one."
+        },
+        {
+            "id": "spear-of-piercing",
+            "name": "Spear of Piercing",
+            "type": "Weapon",
+            "subtype": "Melee/Ranged",
+            "rarity": "Standard",
+            "description": "Melee or ranged weapon. Extra sharp. If used two-handed, damage may be optionally increased by one."
+        },
+        {
+            "id": "spell-book-1",
+            "name": "Spell Book (1 Spell)",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Contains 1 spell. When revealed, draw 1 spell card from the deck and place face-down under the treasure card. The treasure card is discarded if the last spell is removed."
+        },
+        {
+            "id": "spell-book-2",
+            "name": "Spell Book (2 Spells)",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Contains 2 spells. When revealed, draw 2 spell cards from the deck and place face-down under the treasure card. The treasure card is discarded if the last spell is removed."
+        },
+        {
+            "id": "spell-scroll-3",
+            "name": "Spell Scroll (3 Spells)",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "Contains 3 spells. When revealed, draw 3 spell cards from the deck and place face-down under the treasure card. The treasure card is discarded if the last spell is removed."
+        },
+        {
+            "id": "staff-of-souls",
+            "name": "Staff of Souls",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Whenever the staff hits an unarmored, non-undead target, the hero wielding the staff heals one wound."
+        },
+        {
+            "id": "staff-of-the-magi",
+            "name": "Staff of the Magi",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. The hero may choose to ignore one wound symbol on a spell card."
+        },
+        {
+            "id": "summoning-marcation",
+            "name": "Summoning Marcation",
+            "type": "Special",
+            "rarity": "Epic",
+            "description": "Epic treasure. Valuable. During monster activation, it summons as if all local monster die summoning icons printed on map tiles in adjacent tiles are also located in the map tile containing the summoning marcation. Must always be face-up."
+        },
+        {
+            "id": "sword-of-the-lost-prince",
+            "name": "Sword of the Lost Prince",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Epic",
+            "description": "Epic treasure. Has a sword icon on two different might boxes. Valuable."
+        },
+        {
+            "id": "sword-of-torment",
+            "name": "Sword of Torment",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Epic",
+            "description": "Epic treasure. Extra sharp. The hero loses one health while this treasure is equipped. The hero regains the health if the treasure is unequipped."
+        },
+        {
+            "id": "symbol-of-alertness",
+            "name": "Symbol of Alertness",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one alert action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-commerce",
+            "name": "Symbol of Commerce",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one trade action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-greed",
+            "name": "Symbol of Greed",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one loot action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-knowledge",
+            "name": "Symbol of Knowledge",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one learn spells action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-magic",
+            "name": "Symbol of Magic",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one enchant action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-motion",
+            "name": "Symbol of Motion",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one move action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-rest",
+            "name": "Symbol of Rest",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one rest action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-stealth",
+            "name": "Symbol of Stealth",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one sneak action which does not count against the turn's action limit."
+        },
+        {
+            "id": "symbol-of-vision",
+            "name": "Symbol of Vision",
+            "type": "Special",
+            "rarity": "Standard",
+            "description": "May perform one search action which does not count against the turn's action limit."
+        },
+        {
+            "id": "talaria-of-the-gladiator",
+            "name": "Talaria of the Gladiator",
+            "type": "Accessory",
+            "rarity": "Standard",
+            "description": "Counts as one brown speed cube in an existing maneuver speed box. Does not add a maneuver box. This cube does not count against the combat round limit."
+        },
+        {
+            "id": "taper-of-illumination",
+            "name": "Taper of Illumination",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic Treasure. Do not lose an action when in a cave clearing on the hero's turn."
+        },
+        {
+            "id": "temporary-mist-stone",
+            "name": "Temporary Mist Stone",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. When this attack is resolved, a temporary version of the spell Vapor Form is cast. The spell expires at the end of the action phase of the next turn. No magic cubes needed."
+        },
+        {
+            "id": "thiefs-lucky-coin",
+            "name": "Thief's Lucky Coin",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Roll one die during one loot action."
+        },
+        {
+            "id": "time-stone",
+            "name": "Time Stone",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. One attack in the clearing that ties on maneuver speed hits the target."
+        },
+        {
+            "id": "tinkerers-timepiece",
+            "name": "Tinkerer's Timepiece",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The hero may take 2 extra actions of their choice on their turn."
+        },
+        {
+            "id": "tome-of-conjuring",
+            "name": "Tome of Conjuring",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one blue magic cube permanently."
+        },
+        {
+            "id": "tome-of-fay",
+            "name": "Tome of Fay",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one yellow magic cube permanently."
+        },
+        {
+            "id": "tome-of-nature",
+            "name": "Tome of Nature",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one green magic cube permanently."
+        },
+        {
+            "id": "tome-of-power",
+            "name": "Tome of Power",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one purple magic cube permanently."
+        },
+        {
+            "id": "tome-of-righteousness",
+            "name": "Tome of Righteousness",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one white magic cube permanently."
+        },
+        {
+            "id": "tome-of-the-black-arts",
+            "name": "Tome of the Black Arts",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one black magic cube permanently."
+        },
+        {
+            "id": "tome-of-tricks",
+            "name": "Tome of Tricks",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one grey magic cube permanently."
+        },
+        {
+            "id": "tome-of-wizardry",
+            "name": "Tome of Wizardry",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. Receive one magic cube of the hero's choice permanently."
+        },
+        {
+            "id": "tricksters-stone",
+            "name": "Trickster's Stone",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. Receive one grey magic cube while the treasure is equipped."
+        },
+        {
+            "id": "tricky-ring",
+            "name": "Tricky Ring",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. A grey magic cube placed on this treasure increases the hero's attack speed by one. This card can have cubes placed on it in addition to other cards."
+        },
+        {
+            "id": "vain-blade",
+            "name": "Vain Blade",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Must have 3 or more active charisma attribute icons to equip. If the hero has less than 3 active charisma attribute icons at any time, the card is immediately unequipped."
+        },
+        {
+            "id": "vorpal-cutlass",
+            "name": "Vorpal Cutlass",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Extra sharp."
+        },
+        {
+            "id": "wand-of-the-magician",
+            "name": "Wand of the Magician",
+            "type": "Accessory",
+            "rarity": "Epic",
+            "description": "Epic treasure. When casting targeted spells, may reroll one or two hit dice on each hit dice roll."
+        },
+        {
+            "id": "warblade",
+            "name": "Warblade",
+            "type": "Weapon",
+            "subtype": "Melee",
+            "rarity": "Standard",
+            "description": "Melee weapon. Requires that one speed cube be placed on this treasure in lieu of a might cube."
+        },
+        {
+            "id": "whispering-compass",
+            "name": "Whispering Compass",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. May use all hidden paths this turn, even if not found. Used hidden paths are not found."
+        },
+        {
+            "id": "writ-of-redemption",
+            "name": "Writ of Redemption",
+            "type": "One-Time",
+            "rarity": "Standard",
+            "description": "One-time use. The price to buy any one card from a merchant is 1x the base price."
+        }
+    ]
+}

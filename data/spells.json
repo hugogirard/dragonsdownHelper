@@ -1,0 +1,292 @@
+{
+    "spells": [
+        {
+            "id": "break-spells",
+            "name": "Break Spells",
+            "color": "Universal",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "Use any color(s) of cubes. Wound one cube. Immediately cancels all curses and spells on the target."
+        },
+        {
+            "id": "affliction",
+            "name": "Affliction",
+            "color": "Black",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "If the spell hits, the target immediately suffers one wound."
+        },
+        {
+            "id": "curse",
+            "name": "Curse",
+            "color": "Black",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "Wound one black cube. If the spell hits, the target receives one random curse from the curse table. The curse is permanent unless removed."
+        },
+        {
+            "id": "dark-matter",
+            "name": "Dark Matter",
+            "color": "Black",
+            "type": "Targeted",
+            "timing": "Permanent",
+            "description": "Wound one black cube. If hits monster/native, swap might and attack speed and ignore sword icons. If hits player, might cubes must be played on speed boxes and vice versa."
+        },
+        {
+            "id": "rule-undead",
+            "name": "Rule Undead",
+            "color": "Black",
+            "type": "Targeted",
+            "timing": "Combat",
+            "description": "Wound one black cube. If hits, the targeted undead monster is controlled by the caster for the rest of combat, or until the caster is killed, targets the monster, or leaves the clearing."
+        },
+        {
+            "id": "fiery-chasm",
+            "name": "Fiery Chasm",
+            "color": "Black",
+            "type": "Area",
+            "timing": "Instantaneous",
+            "description": "Wound one black cube. Attacks all unhidden, non-flying heroes and monsters in the clearing, including the caster. All targets that are hit are immediately killed and any possessions removed from the game."
+        },
+        {
+            "id": "floating-disk",
+            "name": "Floating Disk",
+            "color": "Blue",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "The targeted hero may have any number of active treasures in their miscellaneous locations."
+        },
+        {
+            "id": "open-gate",
+            "name": "Open Gate",
+            "color": "Blue",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "Wound one blue cube. If the spell hits, the target is placed in a random clearing containing a revealed gate."
+        },
+        {
+            "id": "tentacles",
+            "name": "Tentacles",
+            "color": "Blue",
+            "type": "Combat",
+            "timing": "Combat",
+            "description": "Wound one blue cube. The caster places 4 tentacles on any number of targets, then roll the hit dice for each tentacle. Each double hit lowers maneuver speed by one. Each single hit lowers attack speed by one."
+        },
+        {
+            "id": "air-sword",
+            "name": "Air Sword",
+            "color": "Blue",
+            "type": "Combat",
+            "timing": "Combat",
+            "description": "Wound one blue cube. Beginning next combat round, the caster controls a sword with a might of 2 and 1 sword icon that attacks with a speed of 2 (attack length 6)."
+        },
+        {
+            "id": "teleport",
+            "name": "Teleport",
+            "color": "Blue",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "Wound one blue cube. If the spell hits, the caster chooses a map tile up to two tiles away. Move the target to a random clearing on that tile."
+        },
+        {
+            "id": "divination",
+            "name": "Divination",
+            "color": "Gray",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "The targeted hero may reroll any number of dice during one loot action."
+        },
+        {
+            "id": "envenom",
+            "name": "Envenom",
+            "color": "Gray",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one gray cube. +1 sword icon to the next hit made by the envenomed hero or monster. If the hit target is not killed, it suffers +1 wound. Has no effect on the undead."
+        },
+        {
+            "id": "illusion",
+            "name": "Illusion",
+            "color": "Gray",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one gray cube. All attackers targeting the hero or monster suffer -1 to their attack speed. The effect is not cumulative with other illusion spells."
+        },
+        {
+            "id": "anti-magic",
+            "name": "Anti-Magic",
+            "color": "Gray",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one gray cube. The hero or monster may not be targeted by any spell with the target symbol on it. Indirect effects of spells without a target symbol may still affect the hero or monster."
+        },
+        {
+            "id": "vapor-form",
+            "name": "Vapor Form",
+            "color": "Gray",
+            "type": "Targeted",
+            "timing": "Permanent",
+            "description": "Wound one gray cube. If hits, the hero or monster and all possessions becomes vapor. All cubes unavailable. May only perform explore and move actions. May use all hidden paths while in vapor form."
+        },
+        {
+            "id": "natures-help",
+            "name": "Nature's Help",
+            "color": "Green",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "The targeted hero may reroll any number of dice during one search action."
+        },
+        {
+            "id": "trail-blaze",
+            "name": "Trail Blaze",
+            "color": "Green",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "Wound one green cube. The hero may move one clearing for each move action, regardless of the clearing type being entered."
+        },
+        {
+            "id": "move-earth",
+            "name": "Move Earth",
+            "color": "Green",
+            "type": "Area",
+            "timing": "Instantaneous",
+            "description": "Wound one green cube. The caster may rotate the map tile they are in, or any adjacent map tile, to any orientation they wish. All paths on all tiles must always connect to other paths."
+        },
+        {
+            "id": "calm",
+            "name": "Calm",
+            "color": "Green",
+            "type": "Targeted",
+            "timing": "Instantaneous",
+            "description": "Wound one green cube. If the spell hits, the caster may return the monster to the appropriate monster tray location. The spell has no effect on heroes, guardians, or the undead."
+        },
+        {
+            "id": "elemental",
+            "name": "Elemental",
+            "color": "Green",
+            "type": "Combat",
+            "timing": "Combat",
+            "description": "Wound one green cube. Randomly select one of the elemental counters and place it in the clearing. Starting next combat round, the elemental participates in combat under control of the caster."
+        },
+        {
+            "id": "iron-skin",
+            "name": "Iron Skin",
+            "color": "Purple",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "A hit against this target that does not strike armor follows the rules for armored monsters (removes one sword icon)."
+        },
+        {
+            "id": "strength",
+            "name": "Strength",
+            "color": "Purple",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one purple cube. The target's next hit during this combat phase causes +1 base damage. Strength spells are not cumulative."
+        },
+        {
+            "id": "fly",
+            "name": "Fly",
+            "color": "Purple",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "Wound one purple cube. The hero can fly until the end of the action phase next turn."
+        },
+        {
+            "id": "fireball",
+            "name": "Fireball",
+            "color": "Purple",
+            "type": "Targeted (up to 4)",
+            "timing": "Instantaneous",
+            "description": "Wound one purple cube. Each target the spell individually hits is attacked by a ranged attack with base damage of 2 + 1 sword. If only one target is selected, the spell has base damage of 2 + 2 swords."
+        },
+        {
+            "id": "shape-shift",
+            "name": "Shape Shift",
+            "color": "Purple",
+            "type": "Self",
+            "timing": "Permanent",
+            "description": "Wound one purple cube. When cast, the caster selects any non-undead, non-unique monster counter from the monster tray and replaces their hero with it. The hero fights as a monster using the monster characteristics."
+        },
+        {
+            "id": "soul-save",
+            "name": "Soul Save",
+            "color": "White",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Undead that attack this hero or monster must reroll the most favorable single hit die result rolled, unless both die results were blank."
+        },
+        {
+            "id": "heal",
+            "name": "Heal",
+            "color": "White",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one white cube. If the target is a hero, move any two cubes currently in the wounded box to the healthy box. If a monster, remove 2 wound cubes. May only be cast once per turn."
+        },
+        {
+            "id": "life-armor",
+            "name": "Life Armor",
+            "color": "White",
+            "type": "Self or other",
+            "timing": "Combat",
+            "description": "Wound one white cube. If the target is a hero, they are protected by weightless armor of strength 2. If the target is a monster, it gains armored status."
+        },
+        {
+            "id": "turn-undead",
+            "name": "Turn Undead",
+            "color": "White",
+            "type": "Area",
+            "timing": "Instantaneous",
+            "description": "Wound one white cube. All undead in the clearing are killed."
+        },
+        {
+            "id": "peace",
+            "name": "Peace",
+            "color": "White",
+            "type": "Area",
+            "timing": "Instantaneous",
+            "description": "Wound one white cube. Combat immediately ends in the clearing. Do not finish the combat round."
+        },
+        {
+            "id": "hesitation",
+            "name": "Hesitation",
+            "color": "Yellow",
+            "type": "Targeted",
+            "timing": "Combat",
+            "description": "If the spell hits, the target suffers -1 to their maneuver speed the next time this target is attacked. The spell expires immediately after resolving that attack. Not cumulative."
+        },
+        {
+            "id": "confuse",
+            "name": "Confuse",
+            "color": "Yellow",
+            "type": "Targeted",
+            "timing": "Combat",
+            "description": "Wound one yellow cube. If the spell hits, the target may not cast spells. Spells already cast are unaffected. If the target is casting a spell that has not yet been resolved, it is canceled."
+        },
+        {
+            "id": "charm",
+            "name": "Charm",
+            "color": "Yellow",
+            "type": "Self or other",
+            "timing": "Turn",
+            "description": "Wound one yellow cube. All attributes are +2 for all mission reward die rolls and haggle attempts."
+        },
+        {
+            "id": "disorient",
+            "name": "Disorient",
+            "color": "Yellow",
+            "type": "Targeted",
+            "timing": "Combat",
+            "description": "Wound one yellow cube. Any unresolved attacks this round made by the target are canceled. The target may not attack in future combat rounds unless targeted or hit. The attack speed of the next attack performed by the target is at -2 speed. Not cumulative."
+        },
+        {
+            "id": "discord",
+            "name": "Discord",
+            "color": "Yellow",
+            "type": "Targeted (2)",
+            "timing": "Combat",
+            "description": "Wound one yellow cube. The spell must hit two monsters in the same combat round to take effect. If hits two monsters, cancel their current attacks and both monsters will challenge and target each other until one is dead or combat ends."
+        }
+    ]
+}

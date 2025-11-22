@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import datetime
 from repository import CharacterRepository
+from reference_tabs import render_game_reference
 
 # Set page configuration
 st.set_page_config(
@@ -301,11 +302,27 @@ if 'show_create_form' not in st.session_state:
 if 'show_realm_builder' not in st.session_state:
     st.session_state.show_realm_builder = False
 
+if 'show_combat_tracker' not in st.session_state:
+    st.session_state.show_combat_tracker = False
+
+if 'show_game_reference' not in st.session_state:
+    st.session_state.show_game_reference = False
+
 if 'last_save_time' not in st.session_state:
     st.session_state.last_save_time = None
 
 if 'pending_save' not in st.session_state:
     st.session_state.pending_save = False
+
+if 'combat_tracker' not in st.session_state:
+    st.session_state.combat_tracker = {
+        'in_combat': False,
+        'current_round': 1,
+        'rounds_without_damage': 0,
+        'player_hidden': False,
+        'enemy_flipped': False,
+        'combat_log': []
+    }
 
 
 def save_character(char_id, char_data):
@@ -542,6 +559,443 @@ def render_realm_builder():
                 st.success("✅ Tile list displayed above - you can copy it!")
 
 
+def render_combat_tracker():
+    """Render the combat tracker interface with step-by-step guidance"""
+    st.title("⚔️ Combat Tracker")
+    
+    st.markdown("""
+    ### Step-by-Step Combat Guide
+    
+    Follow the combat flow based on Dragons Down rules.
+    """)
+    
+    # Back button at top
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col3:
+        if st.button("🔙 Back to Home", use_container_width=True):
+            st.session_state.show_combat_tracker = False
+            st.rerun()
+    
+    st.markdown("---")
+    
+    # Get combat tracker from session state
+    combat_tracker = st.session_state.combat_tracker
+    
+    # Initialize combat step if not exists
+    if 'combat_step' not in combat_tracker:
+        combat_tracker['combat_step'] = 'start'
+    
+    # Combat status bar
+    if combat_tracker.get('in_combat', False):
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("🎯 Current Round", combat_tracker.get('current_round', 1))
+        with col2:
+            st.metric("💔 Rounds No Damage", combat_tracker.get('rounds_without_damage', 0))
+        with col3:
+            if st.button("🏁 End Combat", type="secondary", use_container_width=True):
+                # Log combat end
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': f"Combat ended after {combat_tracker['current_round']} rounds"
+                })
+                combat_tracker['combat_log'] = combat_log
+                # Reset combat
+                combat_tracker['in_combat'] = False
+                combat_tracker['current_round'] = 1
+                combat_tracker['rounds_without_damage'] = 0
+                combat_tracker['player_hidden'] = False
+                combat_tracker['enemy_flipped'] = False
+                combat_tracker['combat_step'] = 'start'
+                st.success("✅ Combat ended!")
+                st.rerun()
+        
+        st.markdown("---")
+    
+    # Get current step
+    current_step = combat_tracker.get('combat_step', 'start')
+    
+    # START COMBAT
+    if current_step == 'start':
+        st.header("🎬 Start Combat")
+        st.markdown("""
+        ### Ready to begin combat?
+        Click below to start a new combat encounter.
+        """)
+        
+        if st.button("⚔️ Start New Combat", type="primary", use_container_width=True, key="start_combat"):
+            combat_tracker['in_combat'] = True
+            combat_tracker['current_round'] = 1
+            combat_tracker['rounds_without_damage'] = 0
+            combat_tracker['player_hidden'] = False
+            combat_tracker['enemy_flipped'] = False
+            combat_tracker['combat_step'] = 'hidden_check'
+            # Log combat start
+            combat_log = combat_tracker.get('combat_log', [])
+            combat_log.append({
+                'round': 1,
+                'timestamp': datetime.now().strftime("%H:%M:%S"),
+                'event': "Combat started"
+            })
+            combat_tracker['combat_log'] = combat_log
+            st.rerun()
+        
+        # Show last combat log if exists
+        combat_log = combat_tracker.get('combat_log', [])
+        if combat_log:
+            st.markdown("---")
+            st.subheader("📜 Previous Combat Log")
+            with st.expander("View Last Combat", expanded=False):
+                for entry in reversed(combat_log[-10:]):
+                    st.caption(f"**Round {entry['round']}** ({entry['timestamp']}): {entry['event']}")
+    
+    # HIDDEN CHECK
+    elif current_step == 'hidden_check':
+        st.header(f"🌑 Round {combat_tracker.get('current_round', 1)} - Are You Hidden?")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("✅ YES - I am hidden", type="primary", use_container_width=True, key="hidden_yes"):
+                combat_tracker['player_hidden'] = True
+                combat_tracker['combat_step'] = 'hidden_ambush'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Player is hidden"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+        
+        with col2:
+            if st.button("❌ NO - Not hidden", use_container_width=True, key="hidden_no"):
+                combat_tracker['player_hidden'] = False
+                combat_tracker['combat_step'] = 'normal_combat'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Player is not hidden - normal combat"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+    
+    # HIDDEN - AMBUSH DECISION
+    elif current_step == 'hidden_ambush':
+        st.header(f"🎯 Round {combat_tracker.get('current_round', 1)} - Hidden: Do You Want to Ambush?")
+        st.info("💡 You can only ambush with a spell or ranged weapon")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("⚔️ YES - Ambush Attack", type="primary", use_container_width=True, key="ambush_yes"):
+                combat_tracker['combat_step'] = 'ambush_action'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Player chose to ambush"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+        
+        with col2:
+            if st.button("👁️ NO - Stay Hidden (Recon)", use_container_width=True, key="ambush_no"):
+                combat_tracker['combat_step'] = 'recon_round'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Player stays hidden for reconnaissance"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+    
+    # RECONNAISSANCE ROUND
+    elif current_step == 'recon_round':
+        st.header(f"👁️ Round {combat_tracker.get('current_round', 1)} - Reconnaissance")
+        st.markdown("""
+        ### You are staying hidden to observe the enemy
+        
+        - Watch if the enemy flips
+        - You can attack in the next round
+        - **Remember:** Monster will still use skills dice in Round 2 if you attack
+        """)
+        
+        st.warning("⚠️ Monster uses skills dice for Round 2 if you attack next round")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("🔍 Continue Observing (Next Round)", use_container_width=True, key="recon_continue"):
+                # Advance to next round
+                combat_tracker['current_round'] += 1
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'] - 1,
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': f"Reconnaissance complete - moving to Round {combat_tracker['current_round']}"
+                })
+                combat_tracker['combat_log'] = combat_log
+                combat_tracker['combat_step'] = 'hidden_ambush'
+                st.rerun()
+        
+        with col2:
+            if st.button("⚔️ Attack Now (Monster uses skills dice)", type="primary", use_container_width=True, key="recon_attack"):
+                combat_tracker['combat_step'] = 'ambush_monster_skills'
+                st.rerun()
+    
+    # AMBUSH - MONSTER SKILLS DICE (Round 2 after recon)
+    elif current_step == 'ambush_monster_skills':
+        st.header(f"🎲 Round {combat_tracker.get('current_round', 1)} - Monster Rolls Skills Dice")
+        st.warning("⚠️ This is Round 2 after reconnaissance - Monster rolls skills dice!")
+        
+        st.markdown("""
+        ### Roll skills dice for the monster
+        - Check if they flip
+        - Then proceed to your ambush attack
+        """)
+        
+        if st.button("✅ Skills Dice Rolled - Proceed to Ambush", type="primary", use_container_width=True, key="skills_rolled"):
+            combat_tracker['combat_step'] = 'ambush_action'
+            st.rerun()
+    
+    # AMBUSH ACTION
+    elif current_step == 'ambush_action':
+        st.header(f"🎯 Round {combat_tracker.get('current_round', 1)} - Ambush Attack")
+        
+        st.markdown("""
+        ### Execute Your Ambush
+        1. 🎯 Target monster
+        2. 🎲 Monster rolls skills dice to see if they flip
+        3. 💥 Process damage
+        """)
+        
+        weapon_type = st.radio("Weapon Type:", ["Spell", "Ranged Weapon", "Other"], key="weapon_type", horizontal=True)
+        
+        if weapon_type == "Ranged Weapon":
+            st.warning("🏹 Ranged Weapon: Roll ranged dice and keep the WORST result!")
+        
+        st.markdown("---")
+        
+        st.markdown("### Did enemy flip?")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("✅ Enemy Flipped", use_container_width=True):
+                combat_tracker['enemy_flipped'] = True
+        with col2:
+            if st.button("❌ Enemy Did NOT Flip", use_container_width=True):
+                combat_tracker['enemy_flipped'] = False
+        
+        st.markdown("---")
+        
+        if st.button("💥 Damage Processed - Roll Sneak Dice", type="primary", use_container_width=True, key="ambush_damage"):
+            combat_tracker['combat_step'] = 'sneak_roll'
+            combat_tracker['rounds_without_damage'] = 0  # Reset no damage counter
+            combat_log = combat_tracker.get('combat_log', [])
+            combat_log.append({
+                'round': combat_tracker['current_round'],
+                'timestamp': datetime.now().strftime("%H:%M:%S"),
+                'event': f"Ambush attack executed with {weapon_type}"
+            })
+            combat_tracker['combat_log'] = combat_log
+            st.rerun()
+    
+    # SNEAK ROLL AFTER AMBUSH
+    elif current_step == 'sneak_roll':
+        st.header(f"🎲 Round {combat_tracker.get('current_round', 1)} - Roll Sneak Dice")
+        
+        st.markdown("""
+        ### After ambush, roll your sneak dice
+        
+        **To stay hidden:**
+        - 🎯 You need to roll **TWO BLANKS**
+        """)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("✅ Rolled 2 Blanks - Still Hidden!", type="primary", use_container_width=True, key="sneak_success"):
+                combat_tracker['player_hidden'] = True
+                combat_tracker['current_round'] += 1
+                combat_tracker['combat_step'] = 'hidden_ambush'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'] - 1,
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': f"Sneak successful - still hidden, moving to Round {combat_tracker['current_round']}"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.success("🌑 You remain hidden! Can ambush again next round.")
+                st.rerun()
+        
+        with col2:
+            if st.button("❌ Did NOT Roll 2 Blanks - Revealed!", use_container_width=True, key="sneak_fail"):
+                combat_tracker['player_hidden'] = False
+                combat_tracker['combat_step'] = 'round_end'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Sneak failed - player revealed"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.warning("⚠️ You are revealed! Continue with normal combat.")
+                st.rerun()
+    
+    # NORMAL COMBAT
+    elif current_step == 'normal_combat':
+        st.header(f"⚔️ Round {combat_tracker.get('current_round', 1)} - Normal Combat")
+        
+        st.markdown("""
+        ### Normal Combat Sequence
+        1. **Assign Tactics** - Allocate cubes to weapon, spells, speed, maneuver
+        2. **Select Target**
+        3. **Roll Dice** to see if enemy flips
+        4. **Execute Combat** in speed order
+        """)
+        
+        with st.expander("📋 Step 1: Assign Tactics", expanded=True):
+            st.markdown("Allocate your cubes to:")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("- 🗡️ Weapon")
+                st.markdown("- ✨ Spells")
+            with col2:
+                st.markdown("- 🏃 Speed")
+                st.markdown("- 🛡️ Maneuver")
+        
+        with st.expander("🎯 Step 2: Select Target"):
+            st.markdown("Choose which enemy to attack")
+        
+        with st.expander("🎲 Step 3: Roll Dice"):
+            st.markdown("Roll dice to see if enemy flips")
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("✅ Enemy Flipped", use_container_width=True, key="normal_flip_yes"):
+                    combat_tracker['enemy_flipped'] = True
+                    st.success("Enemy flipped!")
+            with col2:
+                if st.button("❌ Enemy Did NOT Flip", use_container_width=True, key="normal_flip_no"):
+                    combat_tracker['enemy_flipped'] = False
+                    st.info("Enemy did not flip")
+        
+        st.markdown("---")
+        
+        with st.expander("⚔️ Step 4: Execute Combat in Speed Order", expanded=True):
+            st.markdown("### Damage Processing")
+            
+            weapon_type = st.radio("Using ranged weapon?", ["No", "Yes - Ranged Weapon"], key="normal_weapon", horizontal=True)
+            
+            if weapon_type == "Yes - Ranged Weapon":
+                st.warning("🏹 **Ranged Weapon Rule:** Roll ranged dice and keep the WORST result!")
+            
+            st.markdown("---")
+            st.markdown("#### Automatic Hit Check")
+            st.info("💡 If your Speed > Enemy Maneuver = Automatic Hit!")
+            
+            auto_hit = st.checkbox("🎯 Automatic Hit? (Speed > Maneuver)", key="auto_hit")
+            
+            if auto_hit:
+                st.success("✅ Automatic Hit!")
+                instant_kill = st.checkbox("💀 Total Damage ≥ Enemy Health? (Instant Kill)", key="instant_kill")
+                if instant_kill:
+                    st.error("💀 INSTANT KILL!")
+        
+        st.markdown("---")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("💔 Damage Dealt This Round", type="primary", use_container_width=True, key="normal_damage"):
+                combat_tracker['rounds_without_damage'] = 0
+                combat_tracker['combat_step'] = 'round_end'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Damage dealt in normal combat"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+        
+        with col2:
+            if st.button("⏩ No Damage This Round", use_container_width=True, key="normal_no_damage"):
+                combat_tracker['rounds_without_damage'] = combat_tracker.get('rounds_without_damage', 0) + 1
+                combat_tracker['combat_step'] = 'round_end'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "No damage dealt"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+    
+    # ROUND END
+    elif current_step == 'round_end':
+        st.header(f"🔄 End of Round {combat_tracker.get('current_round', 1)}")
+        
+        rounds_no_dmg = combat_tracker.get('rounds_without_damage', 0)
+        
+        if rounds_no_dmg >= 2:
+            st.error("🛑 **Combat Should End!** - No damage for 2 consecutive rounds")
+            st.markdown("According to the rules, combat ends after 2 rounds without damage.")
+            
+            if st.button("🏁 End Combat Now", type="primary", use_container_width=True, key="force_end"):
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': "Combat ended - 2 rounds without damage"
+                })
+                combat_tracker['combat_log'] = combat_log
+                combat_tracker['in_combat'] = False
+                combat_tracker['current_round'] = 1
+                combat_tracker['rounds_without_damage'] = 0
+                combat_tracker['player_hidden'] = False
+                combat_tracker['enemy_flipped'] = False
+                combat_tracker['combat_step'] = 'start'
+                st.rerun()
+        else:
+            st.success(f"✅ Round {combat_tracker.get('current_round', 1)} Complete!")
+            
+            if rounds_no_dmg > 0:
+                st.warning(f"⚠️ {rounds_no_dmg} round(s) without damage. Combat ends after 2.")
+            
+            st.markdown("---")
+            
+            if st.button("➡️ Continue to Next Round", type="primary", use_container_width=True, key="next_round"):
+                combat_tracker['current_round'] += 1
+                combat_tracker['combat_step'] = 'hidden_check'
+                combat_log = combat_tracker.get('combat_log', [])
+                combat_log.append({
+                    'round': combat_tracker['current_round'],
+                    'timestamp': datetime.now().strftime("%H:%M:%S"),
+                    'event': f"Round {combat_tracker['current_round']} started"
+                })
+                combat_tracker['combat_log'] = combat_log
+                st.rerun()
+    
+    # Combat Log at bottom
+    st.markdown("---")
+    st.subheader("📜 Combat Log")
+    combat_log = combat_tracker.get('combat_log', [])
+    
+    if combat_log:
+        with st.expander("View Combat Log", expanded=False):
+            for entry in reversed(combat_log[-20:]):
+                st.caption(f"**Round {entry['round']}** ({entry['timestamp']}): {entry['event']}")
+            
+            if st.button("🗑️ Clear Log", key="clear_log_bottom"):
+                combat_tracker['combat_log'] = []
+                st.rerun()
+    else:
+        st.info("No combat events logged yet")
+
+
 def get_empty_character():
     """Return empty character template"""
     return {
@@ -619,6 +1073,7 @@ def render_character_form(char_data, char_id=None):
         hero_name = st.text_input("Hero Name", value=char_data.get('hero_name', ''), key=f"hero_name_{char_id}")
         lineage_class = st.text_input("Lineage and Class", value=char_data.get('lineage_and_class', ''), key=f"lineage_{char_id}")
         advantages = st.text_area("Advantages", value=char_data.get('advantages', ''), height=100, key=f"advantages_{char_id}")
+    
     
     # Adventure Details Section
     with st.expander("📖 Adventure Details", expanded=st.session_state.sections_expanded):
@@ -984,6 +1439,8 @@ def main():
         if st.button("➕ Create New Character", type="primary", use_container_width=True):
             st.session_state.show_create_form = True
             st.session_state.show_realm_builder = False
+            st.session_state.show_combat_tracker = False
+            st.session_state.show_game_reference = False
             st.session_state.current_character = None
             st.rerun()
         
@@ -991,6 +1448,26 @@ def main():
         if st.button("🏰 Create New Realm", type="secondary", use_container_width=True):
             st.session_state.show_realm_builder = True
             st.session_state.show_create_form = False
+            st.session_state.show_combat_tracker = False
+            st.session_state.show_game_reference = False
+            st.session_state.current_character = None
+            st.rerun()
+        
+        # Combat Tracker Button
+        if st.button("⚔️ Combat Tracker", type="secondary", use_container_width=True):
+            st.session_state.show_combat_tracker = True
+            st.session_state.show_realm_builder = False
+            st.session_state.show_create_form = False
+            st.session_state.show_game_reference = False
+            st.session_state.current_character = None
+            st.rerun()
+        
+        # Game Reference Button
+        if st.button("📚 Game Reference", type="secondary", use_container_width=True):
+            st.session_state.show_game_reference = True
+            st.session_state.show_realm_builder = False
+            st.session_state.show_create_form = False
+            st.session_state.show_combat_tracker = False
             st.session_state.current_character = None
             st.rerun()
         
@@ -1011,6 +1488,8 @@ def main():
                     st.session_state.current_character = char_id
                     st.session_state.show_create_form = False
                     st.session_state.show_realm_builder = False
+                    st.session_state.show_combat_tracker = False
+                    st.session_state.show_game_reference = False
                     st.rerun()
         else:
             st.info("No characters yet. Create your first character!")
@@ -1021,6 +1500,10 @@ def main():
     # Main content area
     if st.session_state.show_realm_builder:
         render_realm_builder()
+    elif st.session_state.show_combat_tracker:
+        render_combat_tracker()
+    elif st.session_state.show_game_reference:
+        render_game_reference()
     elif st.session_state.show_create_form:
         render_character_form(get_empty_character())
     elif st.session_state.current_character:

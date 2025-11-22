@@ -1,0 +1,46 @@
+{
+    "lineages": [
+        {
+            "id": "dwarf",
+            "name": "Dwarf",
+            "advantage": "Caver",
+            "description": "Dwarves are very comfortable in caves. Dwarves do not lose an action for spending any part of their turn in a cave clearing."
+        },
+        {
+            "id": "elf",
+            "name": "Elf",
+            "advantage": "Magical",
+            "description": "Elves are raised around magic and begin the game with an extra spell from the hero starting spells deck. The selected spell must match the color of a magic cube they select for their hero."
+        },
+        {
+            "id": "gnome",
+            "name": "Gnome",
+            "advantage": "Inventive",
+            "description": "Gnomes are very inventive and crafty, often creating their own items. After all players have selected their starting items, the gnome draws 3 cards from the item deck and keeps one of them. Shuffle the unselected item cards back into the item deck."
+        },
+        {
+            "id": "half-elf",
+            "name": "Half-Elf",
+            "advantage": "Two-Worlds",
+            "description": "Half-Elves straddle the worlds of elves and humans. At the beginning of the game, half-elves choose either the elven advantage or the human advantage to use for the entirety of this game session."
+        },
+        {
+            "id": "half-orc",
+            "name": "Half-Orc",
+            "advantage": "Mountaineer",
+            "description": "Half-orcs are very comfortable in mountains and do not pay the additional action cost to enter a mountain clearing."
+        },
+        {
+            "id": "halfling",
+            "name": "Halfling",
+            "advantage": "Stealthy",
+            "description": "Halflings are easily overlooked due to their short stature and quiet nature. Halflings may reroll one monster die per hide attempt, except during the cleanup step of combat."
+        },
+        {
+            "id": "human",
+            "name": "Human",
+            "advantage": "Adapted",
+            "description": "Humans are very comfortable in civilization locations and receive one additional free action during any turn they are in a civilization location."
+        }
+    ]
+}
