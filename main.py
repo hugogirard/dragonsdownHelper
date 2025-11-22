@@ -1,7 +1,9 @@
 import streamlit as st
+import random
 from datetime import datetime
 from repository import CharacterRepository
 from reference_tabs import render_game_reference
+from game_reference_repository import GameReferenceRepository
 
 # Set page configuration
 st.set_page_config(
@@ -414,8 +416,6 @@ def generate_realm_tiles(selected_land_packs):
     Returns:
         List of randomized tile names
     """
-    import random
-    
     all_tiles = get_all_tiles_by_land_pack()
     realm_tiles = []
     
@@ -1071,7 +1071,30 @@ def render_character_form(char_data, char_id=None):
     # Character Info Section
     with st.expander("📋 Character Information", expanded=st.session_state.sections_expanded):
         hero_name = st.text_input("Hero Name", value=char_data.get('hero_name', ''), key=f"hero_name_{char_id}")
-        lineage_class = st.text_input("Lineage and Class", value=char_data.get('lineage_and_class', ''), key=f"lineage_{char_id}")
+        
+        # Lineage and Class with Random Generator
+        col_lc1, col_lc2 = st.columns([3, 1])
+        with col_lc1:
+            lineage_class = st.text_input("Lineage and Class", value=char_data.get('lineage_and_class', ''), key=f"lineage_{char_id}")
+        with col_lc2:
+            if st.button("🎲 Random", key=f"random_lc_{char_id}", use_container_width=True, help="Generate random race and class"):
+                repo = GameReferenceRepository()
+                lineages = repo.get_all_lineages()
+                classes = repo.get_all_classes()
+                
+                if lineages and classes:
+                    random_lineage = random.choice(lineages)
+                    random_class = random.choice(classes)
+                    random_text = f"{random_lineage['name']} {random_class['name']}"
+                    random_advantages = f"**{random_lineage['name']} - {random_lineage['advantage']}:** {random_lineage['description']}\n\n**{random_class['name']} - {random_class['advantage']}:** {random_class['description']}"
+                    
+                    # Update session state to trigger UI update
+                    if f"lineage_{char_id}" in st.session_state:
+                        st.session_state[f"lineage_{char_id}"] = random_text
+                    if f"advantages_{char_id}" in st.session_state:
+                        st.session_state[f"advantages_{char_id}"] = random_advantages
+                    st.rerun()
+        
         advantages = st.text_area("Advantages", value=char_data.get('advantages', ''), height=100, key=f"advantages_{char_id}")
     
     
